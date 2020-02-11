@@ -1,24 +1,40 @@
-# README
+# OODD Project 2
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Store Management System
 
-Things you may want to cover:
+## Steps to test the project on heroku instance:
 
-* Ruby version
+* Login to your Heroku account and create an instance
+```
+heroku login
+heroku create
+```
 
-* System dependencies
+* Push changes to heroku instance
+```
+git push heroku master
 
-* Configuration
+// for specific branch
+git push heroku [branch]:master
+```
 
-* Database creation
+* Migrate the database
+```
+heroku run rake db:migrate
+```
 
-* Database initialization
+## Steps to run the project locally:
 
-* How to run the test suite
+* Install and start postgres
+```
+brew services start postgresql
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+* Run the following commands to download all the dependencies
+```
+bundle install
+bundle update
+rake db:migrate
+rake db:seed
+```
 
-* Deployment instructions
-
-* ...
