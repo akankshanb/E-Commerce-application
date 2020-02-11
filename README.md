@@ -34,6 +34,8 @@ brew services start postgresql
 ```
 bundle install
 bundle update
+yarn install --check-files
+rake db:create:all
 rake db:migrate
 rake db:seed
 ```
