@@ -28,6 +28,10 @@ ActiveRecord::Schema.define(version: 2020_02_16_215240) do
     t.bigint "phone"
     t.date "dob"
     t.string "address"
+    t.string "card_name"
+    t.string "card_number"
+    t.date "exp"
+    t.integer "cvv"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

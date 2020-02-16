@@ -41,6 +41,26 @@
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
+  <div class="field">
+    <%= f.label :card_name %><br />
+    <%= f.text_field :card_name, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :card_number %><br />
+    <%= f.text_field :card_number, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :exp %><br />
+    <%= f.date_field :exp, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cvv %><br />
+    <%= f.number_field :cvv, autofocus: true %>
+  </div>
+
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
