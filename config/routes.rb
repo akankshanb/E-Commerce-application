@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   # Routing to HomePage
   root to: 'pages#home'
-  devise_for :users
+
+  # routing devise to use our custom registrations controller
+  devise_for :users, :controllers => { registrations: 'registrations' }
+  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
