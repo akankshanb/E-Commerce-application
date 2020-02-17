@@ -1,0 +1,85 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Brand:</strong>
+  <%= @item.brand %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @item.name %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @item.category %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @item.quantity %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @item.cost %>
+</p>
+
+<p>
+  <strong>Purchases:</strong>
+  <%= @item.purchases %>
+</p>
+
+<p>
+  <strong>Available:</strong>
+  <%= @item.available %>
+</p>
+
+<p>
+  <strong>Special:</strong>
+  <%= @item.special %>
+</p>
+
+<p>
+  <strong>Restricted:</strong>
+  <%= @item.restricted %>
+</p>
+
+<p>
+  <strong>Age restricted:</strong>
+  <%= @item.age_restricted %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <div style="width:100px; height:auto">
+    <%= image_tag(@item.image, style:'width:100%') %>
+  </div>
+</p>
+
+<!--creating a class for the border-->
+<style>
+  .boxed {
+    border:1px solid black;
+  }
+</style>
+<!--Showing all the reviews-->
+<% if @reviews.blank? %>
+  <h3>No reviews yet, be the first!</h3>
+<% else %>
+  <strong>Reviews:</strong>
+  <% @reviews.each do |review| %>
+    <div class="boxed">
+      <div class="reviews">
+        <p>Rating: <%= review.rating %></p>
+        <p>Review: <%= review.comment %></p>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<!--Adding a link to write the review-->
+<%= link_to "Write a Review", new_item_review_path(@item) %>
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>
