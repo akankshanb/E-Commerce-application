@@ -4,13 +4,26 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @items = Item.all
+    # default is sorted based on the name
+    # @items = Item.all.order('name')
+    @items = Item.where(brand :'Apple')
+    # taking the params values and checking
+    if params.has_key?(:sort) and params.has_key?(:sort_type)
+      @items = Item.order(params[:sort]+" "+params[:sort_type])
+    end
+
   end
 
   # GET /items/1
   # GET /items/1.json
   def show
     @reviews = Review.where(item_id: @item.id).order("created_at DESC")
+    # the average of the ratings to be shown in the show
+    if @reviews.blank?
+      @avg_review = 0
+    else
+      @avg_review = @reviews.average(:rating).round(2)
+    end
   end
 
   # GET /items/new
@@ -26,7 +39,6 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(item_params)
-
     respond_to do |format|
       if @item.save
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
@@ -70,6 +82,6 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:brand, :name, :category, :quantity, :cost, :purchases, :available, :special, :restricted, :age_restricted, :image)
+      params.require(:item).permit(:brand, :name, :category, :quantity, :cost, :purchases, :available, :special, :restricted, :age_restricted, :image, :sort, :sort_type)
     end
 end

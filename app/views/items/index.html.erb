@@ -9,13 +9,15 @@
       <th>Name</th>
       <th>Category</th>
       <th>Quantity</th>
-      <th>Cost</th>
+      <th><%=link_to 'Cost', :sort => "Cost"%></th>
       <th>Purchases</th>
       <th>Available</th>
       <th>Special</th>
       <th>Restricted</th>
       <th>Age restricted</th>
       <th>Image</th>
+<!--      adding the rating column for the items-->
+      <th>Rating</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -38,6 +40,8 @@
             <%= image_tag(item.image, style:'width:100%') %>
           </div>
         </td>
+<!--        calculating the average and adding the rating for the item-->
+        <td><%= @avg_review %></td>
         <td><%= link_to 'Show', item %></td>
         <td><%= link_to 'Edit', edit_item_path(item) %></td>
         <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -48,4 +52,9 @@
 
 <br>
 
-<%= link_to 'New Item', new_item_path %>
+<%= link_to 'New Item', new_item_path %><br>
+<!--sorting the items-->
+<p>Sorting the items</p><br>
+<p>Cost:<p><%=link_to 'ascending', :sort => 'cost', :sort_type =>'ASC'%> | <%=link_to 'descending', :sort => 'Cost', :sort_type => 'DESC'%><br>
+<p>Popularity:<p><%=link_to 'ascending', :sort => 'popularity', :sort_type =>'ASC'%> | <%=link_to 'descending', :sort => 'popularity', :sort_type => 'DESC'%><br>
+<%=link_to 'Cancel sorting', :sort => 'name', :sort_type=>'ASC' %>
