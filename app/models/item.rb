@@ -25,4 +25,9 @@ class Item < ApplicationRecord
       item.update_column('popularity', popularity)
     end
   end
+
+  # implementing the search
+  def self.search(search, search_from)
+    Item.where(search_from.downcase => search)
+  end
 end

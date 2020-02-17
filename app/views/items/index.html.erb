@@ -1,6 +1,19 @@
 <p id="notice"><%= notice %></p>
-
+<!--initializing the @no_result_messages-->
+<%=@no_result_message="" %>
 <h1>Items</h1>
+<!--      the search to filter out what is required-->
+<%= form_tag items_path, :method => 'get' do %>
+  <p>
+    Filter
+<!--    getting the quantity name-->
+    <%= text_field_tag :search, params[:search] %>
+    from
+<!--    getting the column name-->
+    <%= text_field_tag :search_from, params[:search_from] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
 
 <table>
   <thead>
@@ -9,7 +22,7 @@
       <th>Name</th>
       <th>Category</th>
       <th>Quantity</th>
-      <th><%=link_to 'Cost', :sort => "Cost"%></th>
+      <th>Cost</th>
       <th>Purchases</th>
       <th>Available</th>
       <th>Special</th>
@@ -23,6 +36,7 @@
   </thead>
 
   <tbody>
+  <%if @no_result_message.empty?%>
     <% @items.each do |item| %>
       <tr>
         <td><%= item.brand %></td>
@@ -47,6 +61,10 @@
         <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
+<!--  if there are results to display-->
+    <%else %>
+    <strong><%= @no_result_message %></strong>
+    <%end %>
   </tbody>
 </table>
 

@@ -4,14 +4,23 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    # default is sorted based on the name
-    # @items = Item.all.order('name')
-    @items = Item.where(brand :'Apple')
     # taking the params values and checking
     if params.has_key?(:sort) and params.has_key?(:sort_type)
       @items = Item.order(params[:sort]+" "+params[:sort_type])
+    # checking the search being sent in params
+    elsif params.has_key?(:search)
+      # if the result is not empty
+      if not Item.search(params[:search], params[:search_from]).empty?
+        @items = Item.search(params[:search], params[:search_from])
+        # changing the value to display the table as usual
+        @no_result_message = ""
+      else
+        @no_result_message = "Sorry. No such results."
+      end
+    # the default is sorted based on the name
+    else
+      @items = Item.all.order('name')
     end
-
   end
 
   # GET /items/1
@@ -82,6 +91,6 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:brand, :name, :category, :quantity, :cost, :purchases, :available, :special, :restricted, :age_restricted, :image, :sort, :sort_type)
+      params.require(:item).permit(:brand, :name, :category, :quantity, :cost, :purchases, :available, :special, :restricted, :age_restricted, :image, :sort, :sort_type, :search, :search_from)
     end
 end
