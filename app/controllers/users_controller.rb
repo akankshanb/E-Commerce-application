@@ -5,11 +5,6 @@ class UsersController < ApplicationController
     # GET /users.json
     def index
         @users = User.all
-        # if current_user.admin?
-        #   @users = User.all
-        # else
-        #   @users = User.where("id = ?", current_user.id)
-        # end
     end
 
     # GET /users/1
@@ -64,6 +59,7 @@ class UsersController < ApplicationController
         format.json { head :no_content }
         end
     end
+
     private
     
     def set_user
