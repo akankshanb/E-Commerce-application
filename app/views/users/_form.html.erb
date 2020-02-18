@@ -1,0 +1,75 @@
+<%= form_with(model: user, local: true) do |f| %>
+    <% if user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+  
+        <ul>
+          <% user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <div class="field">
+        <%= f.label :name %><br />
+        <%= f.text_field :name, autofocus: true %>
+    </div>
+
+    <div class="field">
+        <%= f.label :phone %><br />
+        <%= f.telephone_field :phone, autofocus: true  %>
+    </div>
+
+    <div class="field">
+        <%= f.label :dob %><br />
+        <%= f.date_field :dob, autofocus: true %>
+    </div>
+
+    <div class="field">
+        <%= f.label :address %><br />
+        <%= f.text_field :address, autofocus: true %>
+    </div>
+
+    <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+
+    <div class="field">
+        <%= f.label :password %>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "new-password" %>
+    </div>
+
+    <div class="field">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    </div>
+
+    <div class="field">
+        <%= f.label :card_name %><br />
+        <%= f.text_field :card_name, autofocus: true %>
+    </div>
+
+    <div class="field">
+        <%= f.label :card_number %><br />
+        <%= f.text_field :card_number, autofocus: true %>
+    </div>
+
+    <div class="field">
+        <%= f.label :exp %><br />
+        <%= f.date_field :exp, autofocus: true %>
+    </div>
+
+    <div class="field">
+        <%= f.label :cvv %><br />
+        <%= f.number_field :cvv, autofocus: true %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
