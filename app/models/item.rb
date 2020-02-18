@@ -1,4 +1,6 @@
 class Item < ApplicationRecord
   has_one_attached :image
   has_many :reviews, dependent: :destroy
+  has_many :line_items
+
 end

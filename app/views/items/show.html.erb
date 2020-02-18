@@ -80,6 +80,8 @@
 
 <!--Adding a link to write the review-->
 <%= link_to "Write a Review", new_item_review_path(@item) %>
-
+<% if user_signed_in? %>
+  <%= button_to 'Add to cart', line_items_path(item_id: @item), class: 'button is-warning add-to-cart' %>
+<% end %>
 <%= link_to 'Edit', edit_item_path(@item) %> |
 <%= link_to 'Back', items_path %>
