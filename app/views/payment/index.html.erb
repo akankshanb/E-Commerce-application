@@ -1,0 +1,40 @@
+<h1>Your are on your last step!!</h1>
+<% @cart.line_items.each do |c| %>
+  <p><strong>Quantity</strong>
+    <%= c.quantity %></p>
+  <p>
+  <div style="width:100px; height:auto">
+    <%= image_tag(c.item.image, style:'width:100%') %>
+  </div>
+  </p>
+
+  <p>
+    <strong>Item</strong>
+    <%= c.item.name %>
+  </p>
+  <p>
+    <strong>Price</strong>
+    <%= number_to_currency(c.total_price) %>
+  </p>
+<% end %>
+<p><strong>Total </strong>
+  <%= number_to_currency(@cart.total_price) %>
+</p>
+<%= link_to 'Back', items_path %>
+<%= link_to 'Pay Now' %>
+<%# @user.each do |u| %>
+<!--  <p><strong>Name On Card</strong>-->
+<!--    <%#= u.card_name %></p>-->
+
+<!--  <p>-->
+<!--    <strong>Card Number</strong>-->
+    <%#= u.card_number %>
+<!--  </p>-->
+<!--  <p>-->
+<!--    <strong>Expiry Date</strong>-->
+    <%#= u.exp %>
+<!--  </p>-->
+
+<!--  <p><strong>CVV</strong>-->
+<!--    <%#= u.cvv %></p>-->
+<%# end %>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'payment/index'
   resources :line_items
   resources :carts
   # Routing to HomePage
