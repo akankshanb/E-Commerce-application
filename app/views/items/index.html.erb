@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 <!--initializing the @no_result_messages-->
-<%=@no_result_message="" %>
+<%#=@no_result_message = "" %>
 <h1>Items</h1>
 <!--      the search to filter out what is required-->
 <%= form_tag items_path, :method => 'get' do %>
@@ -9,10 +9,13 @@
 <!--    getting the quantity name-->
     <%= text_field_tag :search, params[:search] %>
     from
-<!--    getting the column name-->
-    <%= text_field_tag :search_from, params[:search_from] %>
+<!--    getting the column name using the drop down-->
+    <%= select_tag(:search_from, options_for_select([['Category','category'],['Brand','brand'],['Available','available']], params[:search_from]), class:"select") %>
     <%= submit_tag "Search", :name => nil %>
   </p>
+  <%if not params[:search_from].nil? or not params[:search].nil? %>
+    <%=link_to 'Cancel Search', items_path %>
+  <%end%>
 <% end %>
 
 <table>
@@ -36,7 +39,9 @@
   </thead>
 
   <tbody>
+<!--  if there are results to display-->
   <%if @no_result_message.empty?%>
+  <%#if @no_result_message != "Sorry. No such results." %>
     <% @items.each do |item| %>
       <tr>
         <td><%= item.brand %></td>
@@ -61,18 +66,16 @@
         <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
-<!--  if there are results to display-->
-    <%else %>
-    <strong><%= @no_result_message %></strong>
-    <%end %>
+<!--  if there are no results to display-->
+  <%else %>
+    <strong><%=@no_result_message %></strong>
+  <%end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Item', new_item_path %><br>
-<!--sorting the items-->
-<p>Sorting the items</p><br>
-<p>Cost:<p><%=link_to 'ascending', :sort => 'cost', :sort_type =>'ASC'%> | <%=link_to 'descending', :sort => 'Cost', :sort_type => 'DESC'%><br>
-<p>Popularity:<p><%=link_to 'ascending', :sort => 'popularity', :sort_type =>'ASC'%> | <%=link_to 'descending', :sort => 'popularity', :sort_type => 'DESC'%><br>
+<br><%= link_to 'New Item', new_item_path %><br>
+<!--options to sort the items-->
+<p><b>Sort the items</b></p>
+<p>Cost:  <%=link_to 'ascending', :sort => 'cost', :sort_type =>'ASC'%> | <%=link_to 'descending', :sort => 'Cost', :sort_type => 'DESC'%><br></p>
+<p>Popularity:  <%=link_to 'ascending', :sort => 'popularity', :sort_type =>'ASC'%> | <%=link_to 'descending', :sort => 'popularity', :sort_type => 'DESC'%><br></p>
 <%=link_to 'Cancel sorting', :sort => 'name', :sort_type=>'ASC' %>

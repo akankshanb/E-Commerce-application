@@ -9,17 +9,16 @@ class ItemsController < ApplicationController
       @items = Item.order(params[:sort]+" "+params[:sort_type])
     # checking the search being sent in params
     elsif params.has_key?(:search)
-      # if the result is not empty
-      if not Item.search(params[:search], params[:search_from]).empty?
-        @items = Item.search(params[:search], params[:search_from])
-        # changing the value to display the table as usual
-        @no_result_message = ""
-      else
+      # getting the items values
+      @items = Item.where(params[:search_from] => params[:search])
+      if @items.empty?
         @no_result_message = "Sorry. No such results."
       end
-    # the default is sorted based on the name
     else
+      # if no sorting or searching being performed then display the entire list
       @items = Item.all.order('name')
+      # making it again empty
+      @no_result_message = ""
     end
   end
 
