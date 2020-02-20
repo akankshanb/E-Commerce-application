@@ -8,7 +8,6 @@
     Filter
 <!--    getting the quantity name-->
     <%= text_field_tag :search, params[:search] %>
-    from
 <!--    getting the column name using the drop down-->
     <%= select_tag(:search_from, options_for_select([['Category','category'],['Brand','brand'],['Available','available']], params[:search_from]), class:"select") %>
     <%= submit_tag "Search", :name => nil %>
@@ -33,14 +32,14 @@
       <th>Age restricted</th>
       <th>Image</th>
 <!--      adding the rating column for the items-->
-      <th>Rating</th>
+<!--      <th>Rating</th>-->
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
 <!--  if there are results to display-->
-  <%if @no_result_message.empty?%>
+  <%if @no_result_message.nil? or @no_result_message.empty?%>
   <%#if @no_result_message != "Sorry. No such results." %>
     <% @items.each do |item| %>
       <tr>
@@ -68,7 +67,7 @@
     <% end %>
 <!--  if there are no results to display-->
   <%else %>
-    <strong><%=@no_result_message %></strong>
+    <strong><%=@no_result_message + " Please retry and note the search is case sensitive."%></strong>
   <%end %>
   </tbody>
 </table>
@@ -78,4 +77,6 @@
 <p><b>Sort the items</b></p>
 <p>Cost:  <%=link_to 'ascending', :sort => 'cost', :sort_type =>'ASC'%> | <%=link_to 'descending', :sort => 'Cost', :sort_type => 'DESC'%><br></p>
 <p>Popularity:  <%=link_to 'ascending', :sort => 'popularity', :sort_type =>'ASC'%> | <%=link_to 'descending', :sort => 'popularity', :sort_type => 'DESC'%><br></p>
+<!--cancel the sorting-->
 <%=link_to 'Cancel sorting', :sort => 'name', :sort_type=>'ASC' %>
+

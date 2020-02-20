@@ -1,12 +1,18 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  # sorting display
 
   # GET /items
   # GET /items.json
   def index
+    # updating the popularity and availability
+    # Item.update_cost
+    Item.update_popularity
+    Item.update_availability
     # taking the params values and checking
-    if params.has_key?(:sort) and params.has_key?(:sort_type)
+    if params.has_key?(:sort) && params.has_key?(:sort_type)
       @items = Item.order(params[:sort]+" "+params[:sort_type])
+    # end
     # checking the search being sent in params
     elsif params.has_key?(:search)
       # getting the items values
@@ -16,7 +22,7 @@ class ItemsController < ApplicationController
       end
     else
       # if no sorting or searching being performed then display the entire list
-      @items = Item.all.order('name')
+      @items = Item.all#.order('name')
       # making it again empty
       @no_result_message = ""
     end
