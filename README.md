@@ -2,41 +2,15 @@
 
 # Store Management System
 
-## Steps to test the project on heroku instance:
+### Deployment
 
-* Login to your Heroku account and create an instance
-```
-heroku login
-heroku create
-```
+Link to deployed app: [https://storemanagementsystem.herokuapp.com/]()
 
-* Push changes to heroku instance
+### Admin credentials:
 ```
-git push heroku master
-
-// for specific branch
-git push heroku [branch]:master
+Email: admin@gmail.com
+Password: 123456
 ```
 
-* Migrate the database
-```
-heroku run rake db:migrate
-```
 
-## Steps to run the project locally:
-
-* Install and start postgres
-```
-brew services start postgresql
-```
-
-* Run the following commands to download all the dependencies
-```
-bundle install
-bundle update
-yarn install --check-files
-rake db:create:all
-rake db:migrate
-rake db:seed
-```
 
