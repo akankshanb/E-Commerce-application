@@ -3,7 +3,7 @@
 <%= link_to 'Items', items_path %>
 
 <% if current_user.admin %>
-    <%= link_to 'List Users', users_path %>
+    <%= link_to 'List Users', users_admin_index_path %>
 <% end %>
 
 <% if current_user %>
