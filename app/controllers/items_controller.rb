@@ -1,6 +1,5 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-  # sorting display
 
   # GET /items
   # GET /items.json
@@ -16,6 +15,8 @@ class ItemsController < ApplicationController
     if subscribed_users.present?
       # then send the subscribe email to all of them
       UserMailer.with(s_user: subscribed_users).subscribe_email.deliver_now
+      # this is the a new mailer to display the item name as well in the email
+      # ItemMailer.available_email(@item, subscribed_users)
     end
 
     # taking the params values and checking
@@ -23,14 +24,15 @@ class ItemsController < ApplicationController
       @items = Item.order(params[:sort]+" "+params[:sort_type])
     # checking the search being sent in params
     elsif params.has_key?(:search)
-      # getting the items values
-      @items = Item.where(params[:search_from] => params[:search])
+      # these two lines can be used for case sensitive search
+      item_arelTable = Item.arel_table
+      @items = Item.where(item_arelTable[params[:search_from]].matches(params[:search]))
       if @items.empty?
         @no_result_message = "Sorry. No such results."
       end
     else
       # if no sorting or searching being performed then display the entire list
-      @items = Item.all#.order('name')
+      @items = Item.all
       # making it again empty
       @no_result_message = ""
     end

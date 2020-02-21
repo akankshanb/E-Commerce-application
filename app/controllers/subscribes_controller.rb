@@ -39,6 +39,8 @@ class SubscribesController < ApplicationController
   # POST /subscribes
   # POST /subscribes.json
   def create
+    # checking a new method
+    # @subscribe = Subscribe.update_sub(@item, @user)
     @subscribe = Subscribe.new(subscribe_params)
     respond_to do |format|
       if @subscribe.save

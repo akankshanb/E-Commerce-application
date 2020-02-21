@@ -3,11 +3,13 @@ class Item < ApplicationRecord
   has_one_attached :image
   # the reviews relationship
   has_many :reviews, dependent: :destroy
-  # validating that the cost is positive
-  validates :cost, numericality: { greater_than_or_equal_to: 0 }
   # subscribing
   has_many :subscribes, dependent: :destroy
-
+  # Validations of the fields
+  # validating that the cost is non-negative
+  validates :cost, numericality: { greater_than_or_equal_to: 0, message: "The cost must be greater than or equal to zero." }
+  # validating that the quantity is non-negative integer
+  validates :quantity, numericality: { greater_than_or_equal_to: 0, only_integer: true, message: "The quantity must be a non negative integer."}
   # making sure that the cost is updated after creation
   before_create :update_cost
 
