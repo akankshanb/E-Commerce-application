@@ -50,6 +50,6 @@
 
 <br>
 
-<% if current_user.admin? %>
+<% if user_signed_in? && current_user.admin? %>
   <%= link_to 'New Item', new_item_path %>
 <%end%>
