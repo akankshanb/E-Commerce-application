@@ -7,7 +7,15 @@ Rails.application.routes.draw do
   
   resources :items do
     resources :reviews, except: [:show, :index]
+    # the subscribes
+    resources :subscribes, except: [:show, :index]
   end
+
+  #------------
+  # the subscribes
+  # resour
+  # resources :subscribes
+  # --------------
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

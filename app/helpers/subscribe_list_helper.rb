@@ -1,0 +1,2 @@
+module SubscribeListHelper
+end

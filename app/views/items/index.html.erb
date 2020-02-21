@@ -47,7 +47,7 @@
         <td><%= item.name %></td>
         <td><%= item.category %></td>
         <td><%= item.quantity %></td>
-        <td><%= item.cost %></td>
+        <td><%= item.cost %>$</td>
         <td><%= item.purchases %></td>
         <td><%= item.available %></td>
         <td><%= item.special %></td>
@@ -79,4 +79,3 @@
 <p>Popularity:  <%=link_to 'ascending', :sort => 'popularity', :sort_type =>'ASC'%> | <%=link_to 'descending', :sort => 'popularity', :sort_type => 'DESC'%><br></p>
 <!--cancel the sorting-->
 <%=link_to 'Cancel sorting', :sort => 'name', :sort_type=>'ASC' %>
-

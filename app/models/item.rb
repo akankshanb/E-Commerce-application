@@ -5,6 +5,12 @@ class Item < ApplicationRecord
   has_many :reviews, dependent: :destroy
   # validating that the cost is positive
   validates :cost, numericality: { greater_than_or_equal_to: 0 }
+
+  #------------
+  #testing the subscribe table filling
+  has_many :subscribes, dependent: :destroy
+  # -------------
+
   # making sure that the cost is updated after creation
   before_create :update_cost
 
@@ -34,9 +40,11 @@ class Item < ApplicationRecord
   def self.update_availability
     # getting the values with quantity zero
     no_quantity_items = Item.where(quantity: 0)
-    # iterate through all the items
-    no_quantity_items.each do |item|
-      item.update_column('available', false)
+    if not no_quantity_items.empty?
+      # iterate through all the items
+      no_quantity_items.each do |item|
+        item.update_column('available', false)
+      end
     end
   end
 
@@ -60,4 +68,40 @@ class Item < ApplicationRecord
       end
     end
   end
-end
+
+  # ------------
+  # checking for subscribed users
+  def self.check_users
+    # checking the items with availability
+    available_items = Item.where(available: 'true')
+    available_items.each do |a_item|
+      # checking if it is there in the Subscribe table
+      subscribed_items = Subscribe.where(item_id: a_item.id)
+      if not subscribed_items.empty?
+        # new method
+        s_user_list = subscribed_items.pluck(:user_id)
+        s_user = User.find(s_user_list)
+        # the subscribed users mailing list
+        # s_user_mail_list = []
+        # iterating all such items and getting the subscribed users to store in a list
+        # subscribed_items.each do |s_item|
+        #   # appending the values in a list
+        #   s_user = User.where(id: s_item.user_id)
+          if not s_user.empty?
+            # s_user_mail_list.append(s_user.email)
+            s_user_mail_list = s_user.pluck(:email)
+          end
+        end
+        # params[:s_user] = s_user_mail_list
+        subscribed_ids = subscribed_items.pluck(:id)
+        puts "----------------"
+        puts s_user_mail_list
+        # delete the records of which the mails have been sent out already
+        Subscribe.destroy(subscribed_ids)
+        # returning this
+        s_user_mail_list
+      end
+    end
+  end
+  # -----------------------
+# end

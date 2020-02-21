@@ -67,6 +67,16 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1
   # PATCH/PUT /items/1.json
   def update
+    # ---------------
+    # getting the subscribed users email list
+    subscribed_users = Item.check_users
+    # if there are any subscribed users then send the mail to them
+    if subscribed_users.present?
+      # then send the subscribe email to all of them.
+      # params[:user] is available in mailer
+      UserMailer.with(s_user: subscribed_users).subscribe_email.deliver_now
+    end
+    # ---------------
     respond_to do |format|
       if @item.update(item_params)
         format.html { redirect_to @item, notice: 'Item was successfully updated.' }

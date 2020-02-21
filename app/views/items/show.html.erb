@@ -23,7 +23,7 @@
 <p>
 <!--  changing the name from Cost to Price here to make more sense-->
   <strong>Price:</strong>
-<%= @item.cost %><p> (Tax included)</p>
+<%= @item.cost %>$  (Tax included)
 </p>
 
 <p>
@@ -85,9 +85,10 @@
   <% end %>
 <% end %>
 
-<%if not @item.available %>
-  <p><%=link_to "Subscribe"%> for an alert!</p>
-<%end %>>
+<!--checking if item is available. If not, the option to subscribe is available-->
+<% if not @item.available %>
+  <p><%=link_to "Subscribe!", new_item_subscribe_path(@item)%> for an alert!</p>
+<%end %>
 
 <!--Adding a link to write the review-->
 <%= link_to "Write a Review", new_item_review_path(@item) %>
