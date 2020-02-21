@@ -23,4 +23,13 @@ class Cart < ApplicationRecord
     total = @cart.line_items.map(&:quantity).sum
     return total if total > 0
   end
+
+  def remove_cart_items(item)
+    current_item = line_items.find_by(item_id: item.id)
+    if current_item
+      current_item.decrement(:quantity)
+    end
+    current_item
+  end
+
 end

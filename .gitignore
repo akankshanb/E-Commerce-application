@@ -31,3 +31,4 @@ yarn-debug.log*
 .yarn-integrity
 /app/assets/images/*
 /app/assets/stylesheets/*
+db/seeds.rb

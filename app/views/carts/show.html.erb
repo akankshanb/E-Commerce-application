@@ -1,6 +1,6 @@
 <h1> Items in your cart!</h1>
 <p><%= render(@cart.line_items) %></p>
-<%= button_to 'Empty Cart', @cart, method: :delete, data: { confirm: "Are you sure? " }, class: "button is-danger" %>
+<%#= button_to 'Empty Cart', @cart, method: :delete, data: { confirm: "Are you sure? " }, class: "button is-danger" %>
 <p><strong>Total </strong>
 <%= number_to_currency(@cart.total_price) %>
 </p>
