@@ -17,6 +17,8 @@ class SubscribesController < ApplicationController
 
   # GET /subscribes/new
   def new
+    # trying to implement a new way of updating the table
+    # Subscribe.update_sub(@item, @user)
     # creating a new subscribe and saving it into the table
     @subscribe = Subscribe.new(:item_id => @item.id, :user_id => @user.id)
     respond_to do |format|

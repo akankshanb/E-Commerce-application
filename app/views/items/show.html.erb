@@ -88,6 +88,8 @@
 <!--checking if item is available. If not, the option to subscribe is available-->
 <% if not @item.available %>
   <p><%=link_to "Subscribe!", new_item_subscribe_path(@item)%> for an alert!</p>
+<!--  trying to add a new entry through create method-->
+<!--  <p><%#=link_to "Subscribe!", item_subscribes_path(@item)%> for an alert!</p>-->
 <%end %>
 
 <!--Adding a link to write the review-->

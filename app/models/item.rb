@@ -70,19 +70,13 @@ class Item < ApplicationRecord
   def self.check_users
     # checking the items with availability
     available_items = Item.where(available: 'true')
-    puts "*******************"
-    puts available_items.pluck(:id)
     if not available_items.empty?
       # checking if it is there in the Subscribe table
       subscribed_items = Subscribe.where(item_id: available_items.ids)
-      puts "*****************"
-      puts subscribed_items.pluck(:id)
       if not subscribed_items.empty?
         # taking in a list of subscribed users
         # s_user_list = subscribed_items.pluck(:user_id)
         s_user = User.find(subscribed_items.pluck(:user_id))
-        puts "************"
-        puts s_user.pluck(:id)
         # if it is not empty
         if not s_user.empty?
           # taking in a list of their email ids
@@ -94,10 +88,6 @@ class Item < ApplicationRecord
       # delete the records of which the mails have been sent out already
       Subscribe.destroy(subscribed_ids)
       # returning this
-      puts "------------------"
-      puts "This is calculated in the model"
-      puts s_user_mail_list
-      puts "------------------"
       s_user_mail_list
     end
   end
