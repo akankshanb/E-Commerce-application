@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   
   resources :items do
     resources :reviews, except: [:show, :index]
+    resources :subscribes, except: [:show, :index]
   end
 
   # Routing to HomePage

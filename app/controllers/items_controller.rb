@@ -1,16 +1,54 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:show, :index] 
+
   # GET /items
   # GET /items.json
   def index
-    @items = Item.all
+    # updating the popularity and availability
+    Item.update_popularity
+    Item.update_availability
+
+    # getting the subscribed users email list
+    # has to be in the index as we have availability is updated with quantity
+    subscribed_users = Item.check_users
+    # if there are any subscribed users then send the mail to them
+    if subscribed_users.present?
+      # then send the subscribe email to all of them
+      UserMailer.with(s_user: subscribed_users).subscribe_email.deliver_now
+      # this is the a new mailer to display the item name as well in the email
+      # ItemMailer.available_email(@item, subscribed_users)
+    end
+
+    # taking the params values and checking
+    if params.has_key?(:sort) && params.has_key?(:sort_type)
+      @items = Item.order(params[:sort]+" "+params[:sort_type])
+    # checking the search being sent in params
+    elsif params.has_key?(:search)
+      # these two lines can be used for case sensitive search
+      item_arelTable = Item.arel_table
+      @items = Item.where(item_arelTable[params[:search_from]].matches(params[:search]))
+      if @items.empty?
+        @no_result_message = "Sorry. No such results."
+      end
+    else
+      # if no sorting or searching being performed then display the entire list
+      @items = Item.all
+      # making it again empty
+      @no_result_message = ""
+    end
   end
 
   # GET /items/1
   # GET /items/1.json
   def show
     @reviews = Review.where(item_id: @item.id).order("created_at DESC")
+    # the average of the ratings to be shown in the show
+    if @reviews.blank?
+      @avg_review = 0
+    else
+      @avg_review = @reviews.average(:rating).round(2)
+    end
   end
 
   # GET /items/new
@@ -70,6 +108,6 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:brand, :name, :category, :quantity, :cost, :purchases, :available, :special, :restricted, :age_restricted, :image)
+      params.require(:item).permit(:brand, :name, :category, :quantity, :cost, :purchases, :available, :special, :restricted, :age_restricted, :image, :sort, :sort_type, :search, :search_from)
     end
 end
