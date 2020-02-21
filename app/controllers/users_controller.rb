@@ -10,6 +10,7 @@ class UsersController < ApplicationController
     # GET /users/1
     # GET /users/1.json
     def show
+        redirect_to items_path
     end
 
     # GET /users/new
@@ -27,8 +28,8 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
         respond_to do |format|
             if @user.save
-                format.html { redirect_to @user, notice: 'User was successfully created.' }
-                format.json { render :show, status: :created, location: @user }
+                format.html { redirect_to users_path, notice: 'User was successfully created.' }
+                format.json { render :show, status: :created, location: users_path }
             else
                 format.html { render :new }
                 format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -63,8 +64,9 @@ class UsersController < ApplicationController
     private
     
     def set_user
-        # @user = User.find(params[:id])
-        current_user = User.find_by_id(session[:current_user_id])
+        if params[:id] != 'sign_out'
+            @user = User.find(params[:id])
+        end
     end
 
     def user_params

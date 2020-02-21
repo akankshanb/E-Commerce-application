@@ -32,7 +32,6 @@
         <td><%= item.exp %></td>
         <td><%= item.cvv %></td>
         <td><%= item.admin %></td>
-        <td><%= link_to 'Show', item %></td>
         <% if current_user && current_user.admin? %>
           <td><%= link_to 'Edit', edit_user_path(item) %></td>
             <% if !item.admin %>
@@ -46,4 +45,4 @@
 
 <br>
 
-<%= link_to 'Add User', users_new_path %>
+<%= link_to 'Add User', new_user_path %>

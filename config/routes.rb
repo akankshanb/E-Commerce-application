@@ -4,11 +4,11 @@ Rails.application.routes.draw do
   
   resources :users
   
-  devise_scope :user  do
-    get 'users/index' => 'users#index'
-    get  'users/new' => 'users#new'
-    post 'users/create' => 'users#create'
-  end
+  # devise_scope :user  do
+  #   get 'users/index' => 'users#index'
+    # get  'users/new' => 'users#new'
+  #   post 'users/create' => 'users#create'
+  # end
   
   resources :items do
     resources :reviews, except: [:show, :index]
