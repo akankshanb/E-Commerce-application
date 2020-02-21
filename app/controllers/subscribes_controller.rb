@@ -40,7 +40,7 @@ class SubscribesController < ApplicationController
     @subscribe = Subscribe.new(subscribe_params)
     respond_to do |format|
       if @subscribe.save
-        format.html { redirect_to @subscribe, notice: 'Subscribe was successfully created.' }
+        format.html { redirect_to @subscribe}#, notice: 'Subscribe was successfully created.' }
         format.json { render :show, status: :created, location: @subscribe }
       else
         format.html { render :new }

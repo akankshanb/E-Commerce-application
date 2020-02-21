@@ -6,13 +6,21 @@ class ItemsController < ApplicationController
   # GET /items.json
   def index
     # updating the popularity and availability
-    # Item.update_cost
     Item.update_popularity
     Item.update_availability
+
+    # getting the subscribed users email list
+    # has to be in the index as we have availability is updated with quantity
+    subscribed_users = Item.check_users
+    # if there are any subscribed users then send the mail to them
+    if subscribed_users.present?
+      # then send the subscribe email to all of them
+      UserMailer.with(s_user: subscribed_users).subscribe_email.deliver_now
+    end
+
     # taking the params values and checking
     if params.has_key?(:sort) && params.has_key?(:sort_type)
       @items = Item.order(params[:sort]+" "+params[:sort_type])
-    # end
     # checking the search being sent in params
     elsif params.has_key?(:search)
       # getting the items values
@@ -67,16 +75,6 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1
   # PATCH/PUT /items/1.json
   def update
-    # ---------------
-    # getting the subscribed users email list
-    subscribed_users = Item.check_users
-    # if there are any subscribed users then send the mail to them
-    if subscribed_users.present?
-      # then send the subscribe email to all of them.
-      # params[:user] is available in mailer
-      UserMailer.with(s_user: subscribed_users).subscribe_email.deliver_now
-    end
-    # ---------------
     respond_to do |format|
       if @item.update(item_params)
         format.html { redirect_to @item, notice: 'Item was successfully updated.' }

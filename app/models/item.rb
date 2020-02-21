@@ -5,11 +5,8 @@ class Item < ApplicationRecord
   has_many :reviews, dependent: :destroy
   # validating that the cost is positive
   validates :cost, numericality: { greater_than_or_equal_to: 0 }
-
-  #------------
-  #testing the subscribe table filling
+  # subscribing
   has_many :subscribes, dependent: :destroy
-  # -------------
 
   # making sure that the cost is updated after creation
   before_create :update_cost
@@ -69,39 +66,39 @@ class Item < ApplicationRecord
     end
   end
 
-  # ------------
   # checking for subscribed users
   def self.check_users
     # checking the items with availability
     available_items = Item.where(available: 'true')
-    available_items.each do |a_item|
+    puts "*******************"
+    puts available_items.pluck(:id)
+    if not available_items.empty?
       # checking if it is there in the Subscribe table
-      subscribed_items = Subscribe.where(item_id: a_item.id)
+      subscribed_items = Subscribe.where(item_id: available_items.ids)
+      puts "*****************"
+      puts subscribed_items.pluck(:id)
       if not subscribed_items.empty?
-        # new method
-        s_user_list = subscribed_items.pluck(:user_id)
-        s_user = User.find(s_user_list)
-        # the subscribed users mailing list
-        # s_user_mail_list = []
-        # iterating all such items and getting the subscribed users to store in a list
-        # subscribed_items.each do |s_item|
-        #   # appending the values in a list
-        #   s_user = User.where(id: s_item.user_id)
-          if not s_user.empty?
-            # s_user_mail_list.append(s_user.email)
-            s_user_mail_list = s_user.pluck(:email)
-          end
+        # taking in a list of subscribed users
+        # s_user_list = subscribed_items.pluck(:user_id)
+        s_user = User.find(subscribed_items.pluck(:user_id))
+        puts "************"
+        puts s_user.pluck(:id)
+        # if it is not empty
+        if not s_user.empty?
+          # taking in a list of their email ids
+          s_user_mail_list = s_user.pluck(:email)
         end
-        # params[:s_user] = s_user_mail_list
-        subscribed_ids = subscribed_items.pluck(:id)
-        puts "----------------"
-        puts s_user_mail_list
-        # delete the records of which the mails have been sent out already
-        Subscribe.destroy(subscribed_ids)
-        # returning this
-        s_user_mail_list
       end
+      # taking a list of all the ids of the subscribed items
+      subscribed_ids = subscribed_items.pluck(:id)
+      # delete the records of which the mails have been sent out already
+      Subscribe.destroy(subscribed_ids)
+      # returning this
+      puts "------------------"
+      puts "This is calculated in the model"
+      puts s_user_mail_list
+      puts "------------------"
+      s_user_mail_list
     end
   end
-  # -----------------------
-# end
+end
