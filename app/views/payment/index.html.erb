@@ -1,4 +1,4 @@
-<h1>Your are on your last step!!</h1>
+<h1>You are on your last step!</h1>
 <% @cart.line_items.each do |c| %>
   <p><strong>Quantity</strong>
     <%= c.quantity %></p>
@@ -20,21 +20,20 @@
 <p><strong>Total </strong>
   <%= number_to_currency(@cart.total_price) %>
 </p>
+<p><strong>Name On Card</strong>
+  <%= current_user.card_name %></p>
+
+<p>
+  <strong>Card Number</strong>
+  <%= current_user.card_number %>
+</p>
+<p>
+  <strong>Expiry Date</strong>
+  <%= current_user.exp %>
+</p>
+
+<p><strong>CVV</strong>
+  <%= current_user.cvv %></p>
+
 <%= link_to 'Back', items_path %>
-<%= link_to 'Pay Now' %>
-<%# @user.each do |u| %>
-<!--  <p><strong>Name On Card</strong>-->
-<!--    <%#= u.card_name %></p>-->
-
-<!--  <p>-->
-<!--    <strong>Card Number</strong>-->
-    <%#= u.card_number %>
-<!--  </p>-->
-<!--  <p>-->
-<!--    <strong>Expiry Date</strong>-->
-    <%#= u.exp %>
-<!--  </p>-->
-
-<!--  <p><strong>CVV</strong>-->
-<!--    <%#= u.cvv %></p>-->
-<%# end %>
+<%= link_to 'Pay Now', send_otp_path%>

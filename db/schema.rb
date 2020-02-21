@@ -109,7 +109,6 @@ ActiveRecord::Schema.define(version: 2020_02_19_005406) do
     t.string "card_number"
     t.date "exp"
     t.integer "cvv"
-    t.string "otp_secret_key"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
