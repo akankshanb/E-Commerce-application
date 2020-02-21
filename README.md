@@ -2,15 +2,19 @@
 
 # Store Management System
 
-### Deployment
+## Deployment
 
 Link to deployed app: [https://storemanagementsystem.herokuapp.com/]()
 
-### Admin credentials:
+## Admin credentials:
 ```
 Email: admin@gmail.com
 Password: 123456
 ```
 
+## Main Components: 
 
-
+* Admin
+* User (Registered Customer)
+* Visitor
+* Item
