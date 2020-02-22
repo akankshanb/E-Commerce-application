@@ -1,0 +1,18 @@
+<p><strong>Quantity</strong>
+  <%= line_item.quantity %></p>
+<p>
+<div style="width:100px; height:auto">
+  <%= image_tag(line_item.item.image, style:'width:100%') %>
+</div>
+</p>
+
+<p>
+  <strong>Item</strong>
+  <%= line_item.item.name %>
+</p>
+<p>
+  <strong>Price</strong>
+  <%= number_to_currency(line_item.total_price) %>
+</p>
+
+<%= link_to 'Remove Item', line_item, method: :delete, data: { confirm: "Are you sure? " }, class: "button is-small mb4" %>

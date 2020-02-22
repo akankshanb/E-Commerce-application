@@ -1,10 +1,13 @@
 class ItemsController < ApplicationController
+  include CurrentCart
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:show, :index] 
+  before_action :authenticate_user!, except: [:show, :index]
+  before_action :set_cart, only: [:show, :edit, :update, :destroy]
   # GET /items
   # GET /items.json
   def index
     @items = Item.all
+    # @cart = Cart.find(session[:cart_id])
   end
 
   # GET /items/1
@@ -71,5 +74,9 @@ class ItemsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def item_params
       params.require(:item).permit(:brand, :name, :category, :quantity, :cost, :purchases, :available, :special, :restricted, :age_restricted, :image)
+    end
+
+    def set_cart
+      @cart = Cart.find(params[:id])
     end
 end

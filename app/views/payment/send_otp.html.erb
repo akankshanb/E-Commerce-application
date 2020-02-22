@@ -1,0 +1,11 @@
+<h1>Verify otp sent to your email</h1>
+<%= form_for(:payment, :url => {:action => 'verify_otp'}) do |form| %>
+  <div class="field">
+    <%= form.label :otp %>
+    <%= form.text_field :otp %>
+  </div>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
