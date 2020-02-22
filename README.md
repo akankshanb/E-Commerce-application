@@ -13,7 +13,7 @@
 
 ## Deployment
 
-Link to deployed app: [https://storemanagementsystem.herokuapp.com/]()
+Link to deployed app: (https://storemanagementsystem.herokuapp.com)
 
 ## Admin credentials:
 ```
