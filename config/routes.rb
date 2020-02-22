@@ -1,13 +1,15 @@
-Rails.application.routes.draw do
-  # Routing to HomePage
-  root to: 'welcome#index'
-
+Rails.application.routes.draw do  
   # routing devise to use our custom registrations controller
-  devise_for :users, :controllers => { registrations: 'registrations' }
+  devise_for :users, :controllers => { sessions: 'sessions', registrations: 'registrations'}
+  
+  resources :users, only: [:show, :edit, :update]
+  
+  resources :users_admin, :controller => 'users'
   
   resources :items do
     resources :reviews, except: [:show, :index]
   end
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  # Routing to HomePage
+  root 'welcome#index'
 end
