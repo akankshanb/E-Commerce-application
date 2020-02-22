@@ -84,3 +84,10 @@ If you are logged in as a non-admin user and try to access /users_admin, you wil
 ```
 
 </details>
+
+## Note
+
+* No mapping of feedback with users.
+* Sorting and filtering are not cohesive right now (works independently).
+* Validations are not applied.
+

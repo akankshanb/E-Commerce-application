@@ -29,6 +29,6 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+./database.yml
 /app/assets/images/*
 /app/assets/stylesheets/*
-db/seeds.rb
