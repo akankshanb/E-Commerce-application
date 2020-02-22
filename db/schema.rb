@@ -36,6 +36,11 @@ ActiveRecord::Schema.define(version: 2020_02_20_204453) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "carts", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "brand"
     t.string "name"
@@ -53,6 +58,33 @@ ActiveRecord::Schema.define(version: 2020_02_20_204453) do
     t.bigint "user_id", null: false
     t.float "popularity"
     t.index ["user_id"], name: "index_items_on_user_id"
+  end
+
+  create_table "line_items", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.bigint "cart_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "quantity", default: 1
+    t.index ["cart_id"], name: "index_line_items_on_cart_id"
+    t.index ["item_id"], name: "index_line_items_on_item_id"
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer "quantity"
+    t.integer "item_id"
+    t.integer "order_id"
+    t.decimal "unit_price"
+    t.decimal "total"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.decimal "subtotal"
+    t.decimal "total"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -95,4 +127,8 @@ ActiveRecord::Schema.define(version: 2020_02_20_204453) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "items", "users"
+  add_foreign_key "line_items", "carts"
+  add_foreign_key "line_items", "items"
+  add_foreign_key "subscribes", "items"
+  add_foreign_key "subscribes", "users"
 end

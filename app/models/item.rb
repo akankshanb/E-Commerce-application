@@ -1,5 +1,4 @@
 class Item < ApplicationRecord
-  
   belongs_to :user
   # the image relationship
   has_one_attached :image
@@ -7,6 +6,8 @@ class Item < ApplicationRecord
   has_many :reviews, dependent: :destroy
   # subscribing
   has_many :subscribes, dependent: :destroy
+
+  has_many :line_items
   # Validations of the fields
   # validating that the cost is non-negative
   validates :cost, numericality: { greater_than_or_equal_to: 0, message: "The cost must be greater than or equal to zero." }
@@ -67,7 +68,7 @@ class Item < ApplicationRecord
       else
         item.update_column('cost', cost_item + (cost_item)*(0.15).round(2))
       end
-    # end
+    end
   end
 
   # checking for subscribed users
@@ -95,5 +96,4 @@ class Item < ApplicationRecord
       s_user_mail_list
     end
   end
-end
 end

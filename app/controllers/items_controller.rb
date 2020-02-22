@@ -1,6 +1,8 @@
 class ItemsController < ApplicationController
+  include CurrentCart
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:show, :index] 
+  before_action :authenticate_user!, except: [:show, :index]
+  before_action :set_cart, except: [:create, :new, :update]
 
   # GET /items
   # GET /items.json
@@ -68,8 +70,8 @@ class ItemsController < ApplicationController
     @item.user = current_user
     respond_to do |format|
       if @item.save
-        format.html { redirect_to @item, notice: 'Item was successfully created.' }
-        format.json { render :show, status: :created, location: @item }
+        format.html { redirect_to items_path, notice: 'Item was successfully created.' }
+        format.json { render :show, status: :created, location: items_path }
       else
         format.html { render :new }
         format.json { render json: @item.errors, status: :unprocessable_entity }
@@ -83,8 +85,8 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update(item_params)
-        format.html { redirect_to @item, notice: 'Item was successfully updated.' }
-        format.json { render :show, status: :ok, location: @item }
+        format.html { redirect_to items_path, notice: 'Item was successfully updated.' }
+        format.json { render :show, status: :ok, location: items_path }
       else
         format.html { render :edit }
         format.json { render json: @item.errors, status: :unprocessable_entity }
