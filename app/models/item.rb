@@ -13,7 +13,7 @@ class Item < ApplicationRecord
   # validating that the quantity is non-negative integer
   validates :quantity, numericality: { greater_than_or_equal_to: 0, only_integer: true, message: "The quantity must be a non negative integer."}
   # making sure that the cost is updated after creation
-  before_create :update_cost
+  # before_create :update_cost
 
   # updating the popularity column to be sorted later
   def self.update_popularity
@@ -50,7 +50,7 @@ class Item < ApplicationRecord
   end
 
   # updating the cost column of the item which includes the tax of the item
-  def self.update_cost
+  def self.update_cost(item)
     # iterate through all the items
     Item.all.each do |item|
     # the tax bracket [0-100) -> 5%; [100-1000) -> 10%; [1000,.] ->15%
@@ -67,7 +67,7 @@ class Item < ApplicationRecord
       else
         item.update_column('cost', cost_item + (cost_item)*(0.15).round(2))
       end
-    end
+    # end
   end
 
   # checking for subscribed users
