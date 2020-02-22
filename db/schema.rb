@@ -55,8 +55,8 @@ ActiveRecord::Schema.define(version: 2020_02_20_204453) do
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", null: false
     t.float "popularity"
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
@@ -68,23 +68,6 @@ ActiveRecord::Schema.define(version: 2020_02_20_204453) do
     t.integer "quantity", default: 1
     t.index ["cart_id"], name: "index_line_items_on_cart_id"
     t.index ["item_id"], name: "index_line_items_on_item_id"
-  end
-
-  create_table "order_items", force: :cascade do |t|
-    t.integer "quantity"
-    t.integer "item_id"
-    t.integer "order_id"
-    t.decimal "unit_price"
-    t.decimal "total"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "orders", force: :cascade do |t|
-    t.decimal "subtotal"
-    t.decimal "total"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -121,6 +104,7 @@ ActiveRecord::Schema.define(version: 2020_02_20_204453) do
     t.string "card_number"
     t.date "exp"
     t.integer "cvv"
+    t.string "otp_secret_key"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
