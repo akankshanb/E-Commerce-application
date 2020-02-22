@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.0'
 
 # Hirb 
-#gem 'hirb', '~> 0.7.3'
+gem 'hirb', '~> 0.7.3'
 # Devise gem
 gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -28,9 +28,6 @@ gem 'jbuilder', '~> 2.7'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
-
-# To print the tables in rails consoles
-gem 'hirb'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
@@ -59,3 +56,6 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'active_model_otp'
+
+
