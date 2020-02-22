@@ -13,9 +13,6 @@ Item.create!([
                  {brand: "Apple", name: "Iphone 11", category: "Electronics", quantity: 10, cost: 1150.0, purchases: 0, available: true, special: true, restricted: false, age_restricted: false, image: Rails.root.join("app/assets/images/saas_book.jpg/Apple_iPhone_11.png").open, popularity: 0.408},
                  {brand: "Mush Makers", name: "Blender 2.0", category: "Electronics", quantity: 0, cost: 31.5, purchases: 0, available: false, special: false, restricted: false, age_restricted: false, image: Rails.root.join("app/assets/images/saas_book.jpg/Blender.jfif").open, popularity: 0.0}
              ])
-User.create!([
-                 {email: "santoshpavan.psp@gmail.com", encrypted_password: "$2a$11$V0SD589SgpTGyYktKP0Ce.iOEEKNTE49ZA2pdbQoZH/DeZMkKJPGG", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: "2020-02-21 02:51:10", admin: false, name: "Santosh", phone: 9195238137, dob: "2019-12-12", address: "In the moment", card_name: "Santosh", card_number: "4000400040004000", exp: "2021-12-12", cvv: 890}
-             ])
 Review.create!([
                    {rating: 5, comment: "Amazing phone! I love it!", item_id: 3},
                    {rating: 2, comment: "Very fragile. Broke it thrice already! Iphone? More like an Icephone!", item_id: 3},
