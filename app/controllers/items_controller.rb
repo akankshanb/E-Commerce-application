@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   include CurrentCart
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:show, :index]
-  before_action :set_cart, only: [:show, :edit, :update, :destroy]
+  before_action :set_cart, except: [:create, :new, :update]
   # GET /items
   # GET /items.json
   def index
@@ -32,7 +32,7 @@ class ItemsController < ApplicationController
     @item.user = current_user
     respond_to do |format|
       if @item.save
-        format.html { redirect_to @item, notice: 'Item was successfully created.' }
+        format.html { redirect_to items_path, notice: 'Item was successfully created.' }
         format.json { render :show, status: :created, location: @item }
       else
         format.html { render :new }
@@ -46,7 +46,7 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update(item_params)
-        format.html { redirect_to @item, notice: 'Item was successfully updated.' }
+        format.html { redirect_to items_path, notice: 'Item was successfully updated.' }
         format.json { render :show, status: :ok, location: @item }
       else
         format.html { render :edit }
@@ -76,7 +76,7 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:brand, :name, :category, :quantity, :cost, :purchases, :available, :special, :restricted, :age_restricted, :image)
     end
 
-    def set_cart
-      @cart = Cart.find(params[:id])
-    end
+    # def set_cart
+    #   @cart = Cart.find(params[:id])
+    # end
 end

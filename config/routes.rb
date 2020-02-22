@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :payment, :only => [:index, :show, :create]
   get :send_otp, to: 'payment#send_otp', as: :send_otp
   post :verify_otp, to: 'payment#verify_otp', as: :verify_otp
+
   # routing devise to use our custom registrations controller
   devise_for :users, :controllers => { sessions: 'sessions', registrations: 'registrations'}
   
@@ -18,6 +19,4 @@ Rails.application.routes.draw do
     resources :reviews, except: [:show, :index]
   end
 
-  # Routing to HomePage
-  root 'welcome#index'
 end
