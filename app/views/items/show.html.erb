@@ -21,8 +21,9 @@
 </p>
 
 <p>
-  <strong>Cost:</strong>
-  <%= @item.cost %>
+<!--  changing the name from Cost to Price here to make more sense-->
+  <strong>Price:</strong>
+<%= @item.cost %>$  (Tax included)
 </p>
 
 <p>
@@ -57,6 +58,12 @@
   </div>
 </p>
 
+<!--adding the average rating value-->
+<p>
+  <strong>Average Rating:</strong>
+  <%= @avg_review %>
+</p>
+
 <!--creating a class for the border-->
 <style>
   .boxed {
@@ -78,8 +85,16 @@
   <% end %>
 <% end %>
 
+<!--checking if item is available. If not, the option to subscribe is available-->
+<% if not @item.available %>
+  <p><%=link_to "Subscribe!", new_item_subscribe_path(@item)%> for an alert!</p>
+<!--  trying to add a new entry through create method-->
+<!--  <p><%#=link_to "Subscribe!", item_subscribes_path(@item)%> for an alert!</p>-->
+<%end %>
+
 <!--Adding a link to write the review-->
 <%= link_to "Write a Review", new_item_review_path(@item) %>
-
+<%if user_signed_in? && current_user.admin? %>
 <%= link_to 'Edit', edit_item_path(@item) %> |
+ <%end %>
 <%= link_to 'Back', items_path %>

@@ -1,6 +1,21 @@
 <p id="notice"><%= notice %></p>
-
+<!--initializing the @no_result_messages-->
+<%#=@no_result_message = "" %>
 <h1>Items</h1>
+<!--      the search to filter out what is required-->
+<%= form_tag items_path, :method => 'get' do %>
+  <p>
+    Filter
+<!--    getting the quantity name-->
+    <%= text_field_tag :search, params[:search] %>
+<!--    getting the column name using the drop down-->
+    <%= select_tag(:search_from, options_for_select([['Category','category'],['Brand','brand'],['Available','available']], params[:search_from]), class:"select") %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+  <%if not params[:search_from].nil? or not params[:search].nil? %>
+    <%=link_to 'Cancel Search', items_path %>
+  <%end%>
+<% end %>
 
 <table>
   <thead>
@@ -9,25 +24,32 @@
       <th>Name</th>
       <th>Category</th>
       <th>Quantity</th>
-      <th>Cost</th>
+<!--      <th>Cost</th>-->
+<!--      makes more sense to name it as price than cost-->
+      <th>Price</th>
       <th>Purchases</th>
       <th>Available</th>
       <th>Special</th>
       <th>Restricted</th>
       <th>Age restricted</th>
       <th>Image</th>
+<!--      adding the rating column for the items-->
+<!--      <th>Rating</th>-->
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
+<!--  if there are results to display-->
+  <%if @no_result_message.nil? or @no_result_message.empty?%>
+  <%#if @no_result_message != "Sorry. No such results." %>
     <% @items.each do |item| %>
       <tr>
         <td><%= item.brand %></td>
         <td><%= item.name %></td>
         <td><%= item.category %></td>
         <td><%= item.quantity %></td>
-        <td><%= item.cost %></td>
+        <td><%= item.cost %>$</td>
         <td><%= item.purchases %></td>
         <td><%= item.available %></td>
         <td><%= item.special %></td>
@@ -38,14 +60,32 @@
             <%= image_tag(item.image, style:'width:100%') %>
           </div>
         </td>
+<!--        calculating the average and adding the rating for the item-->
+        <td><%= @avg_review %></td>
         <td><%= link_to 'Show', item %></td>
-        <td><%= link_to 'Edit', edit_item_path(item) %></td>
-        <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if current_user && current_user.admin? %>
+          <td><%= link_to 'Edit', edit_item_path(item) %></td>
+          <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
+<!--  if there are no results to display-->
+  <%else %>
+    <strong><%=@no_result_message + " Please retry."%></strong>
+  <%end %>
   </tbody>
 </table>
 
-<br>
+<br> 
 
-<%= link_to 'New Item', new_item_path %>
+<% if user_signed_in? && current_user.admin? %>
+  <%= link_to 'New Item', new_item_path %>
+<%end%>
+
+<!--options to sort the items-->
+<p><b>Sort the items</b></p>
+<p>Cost:  <%=link_to 'ascending', :sort => 'cost', :sort_type =>'ASC'%> | <%=link_to 'descending', :sort => 'Cost', :sort_type => 'DESC'%><br></p>
+<p>Popularity:  <%=link_to 'ascending', :sort => 'popularity', :sort_type =>'ASC'%> | <%=link_to 'descending', :sort => 'popularity', :sort_type => 'DESC'%><br></p>
+<!--cancel the sorting-->
+<%=link_to 'Cancel sorting', items_path %>
+<%= link_to 'Home', root_path %>

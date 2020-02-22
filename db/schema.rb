@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_16_215240) do
+ActiveRecord::Schema.define(version: 2020_02_20_204453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,9 @@ ActiveRecord::Schema.define(version: 2020_02_16_215240) do
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.float "popularity"
+    t.index ["user_id"], name: "index_items_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -58,6 +61,15 @@ ActiveRecord::Schema.define(version: 2020_02_16_215240) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "item_id"
+  end
+
+  create_table "subscribes", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_id"], name: "index_subscribes_on_item_id"
+    t.index ["user_id"], name: "index_subscribes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -82,4 +94,5 @@ ActiveRecord::Schema.define(version: 2020_02_16_215240) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "items", "users"
 end
