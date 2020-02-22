@@ -75,3 +75,12 @@ popularity = 0.4 * (normalized_average_rating) + 0.6 * (normalized_number_of_pur
 * Subscribe for availability
 
 </details>
+
+<details><summary>Extra Credit</summary>
+
+* No user/visitor should access any private content associated with other user/admin's account.
+```
+If you are logged in as a non-admin user and try to access /users_admin, you will not be allowed to.
+```
+
+</details>
