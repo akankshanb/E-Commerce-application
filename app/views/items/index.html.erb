@@ -71,7 +71,7 @@
     <% end %>
 <!--  if there are no results to display-->
   <%else %>
-    <strong><%=@no_result_message + " Please retry and note the search is case sensitive."%></strong>
+    <strong><%=@no_result_message + " Please retry."%></strong>
   <%end %>
   </tbody>
 </table>
@@ -88,3 +88,4 @@
 <p>Popularity:  <%=link_to 'ascending', :sort => 'popularity', :sort_type =>'ASC'%> | <%=link_to 'descending', :sort => 'popularity', :sort_type => 'DESC'%><br></p>
 <!--cancel the sorting-->
 <%=link_to 'Cancel sorting', items_path %>
+<%= link_to 'Home', root_path %>

@@ -5,13 +5,14 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    # updating the popularity and availability
-    Item.update_popularity
-    Item.update_availability
-
     # getting the subscribed users email list
     # has to be in the index as we have availability is updated with quantity
-    subscribed_users = Item.check_users
+    if not Item.first.nil?
+      # updating the popularity and availability
+      Item.update_popularity
+      Item.update_availability
+      subscribed_users = Item.check_users
+    end
     # if there are any subscribed users then send the mail to them
     if subscribed_users.present?
       # then send the subscribe email to all of them
