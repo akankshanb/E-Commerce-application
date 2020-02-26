@@ -76,6 +76,7 @@ class ItemsController < ApplicationController
         format.html { render :new }
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end
+      # removing the update cost as we only need the tax during the purchasing
       Item.update_cost(@item)
     end
   end

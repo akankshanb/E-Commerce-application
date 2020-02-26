@@ -53,23 +53,26 @@ class Item < ApplicationRecord
   # updating the cost column of the item which includes the tax of the item
   def self.update_cost(item)
     # iterate through all the items
-    Item.all.each do |item|
+    # Item.all.each do |item|
     # the tax bracket [0-100) -> 5%; [100-1000) -> 10%; [1000,.] ->15%
     # getting the cost of the item
     cost_item = item.cost
       case cost_item
       # first tax bracket
       when 0..99
-        item.update_column('cost', cost_item + (cost_item)*(0.05).round(2))
+        price_item = (cost_item + (cost_item)*(0.05)).round(2)
+        item.update_column('cost', price_item)
       # second tax bracket
       when 100..999
-        item.update_column('cost', cost_item + (cost_item)*(0.1).round(2))
+        price_item = ((cost_item + (cost_item)*(0.1))).round(2)
+        item.update_column('cost', price_item)
       # rest of the tax bracket
       else
-        item.update_column('cost', cost_item + (cost_item)*(0.15).round(2))
+        price_item = ((cost_item + (cost_item)*(0.15))).round(2)
+        item.update_column('cost', price_item)
       end
     end
-  end
+  # end
 
   # checking for subscribed users
   def self.check_users
