@@ -18,6 +18,8 @@ class PaymentController < ApplicationController
     @cart = Cart.find(session[:cart_id])
     @line_item = LineItem.all
     if(mail_otp == session[:current_otp])
+      # sending the purchasing details to the user
+      UserMailer.with(user: current_user, cart: @cart).purchase_details.deliver_now
       session[:current_otp] = nil
       @line_item.destroy_all
       respond_to do |format|
