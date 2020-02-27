@@ -96,4 +96,16 @@ class Item < ApplicationRecord
       s_user_mail_list
     end
   end
+
+  # updating the count according to the purchases made
+  def self.update_quantity(line_items)
+    line_items.each do |item|
+      # take the item id
+      item_id = item.item_id
+      # extract the present quantity
+      item_present_quantity = Item.find(item_id).quantity
+      # update the quantity by reducing from the present amount
+      Item.find(item_id).update_column('quantity', item_present_quantity - item.quantity)
+    end
+  end
 end

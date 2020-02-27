@@ -20,6 +20,8 @@ class PaymentController < ApplicationController
     if(mail_otp == session[:current_otp])
       # sending the purchasing details to the user
       UserMailer.with(user: current_user, cart: @cart).purchase_details.deliver_now
+      # updating the items quantity
+      Item.update_quantity(@line_item)
       session[:current_otp] = nil
       @line_item.destroy_all
       respond_to do |format|
