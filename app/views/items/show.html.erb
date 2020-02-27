@@ -99,6 +99,8 @@
     <p>This item is age restricted. Cannot be bought.</p>
   <%else%>
     <%= button_to 'Add to cart', line_items_path(item_id: @item), class: 'button is-warning add-to-cart' %>
+<!--    link to buy the item directly bypassing the cart-->
+    <%= link_to 'Buy Now!', send_otp_path %>
   <%end %>
 <!--else option to sign up-->
 <% else %>
