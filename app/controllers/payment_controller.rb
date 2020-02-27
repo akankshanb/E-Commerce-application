@@ -36,7 +36,20 @@ class PaymentController < ApplicationController
 
   def send_otp
     @user = current_user
-    @cart = Cart.find(session[:cart_id])
+    # adding the item in buy now option to the cart
+    if params[:buy_state] == "now"
+      # creating a new cart for this
+      @cart = Cart.new
+      @cart.save
+      # assigning to the session as this info is used to send mail
+      session[:cart_id] = @cart.id
+      # getting the item information
+      @item = Item.find(params[:item_buy])
+      @line_item = @cart.add_item(@item)
+      @line_item.save
+    else
+      @cart = Cart.find(session[:cart_id])
+    end
     @line_item = LineItem.all
     UserMailer.with(user: @user, otp: @user_otp).otp_email.deliver_now
   end
