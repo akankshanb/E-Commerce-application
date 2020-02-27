@@ -18,7 +18,14 @@
   </p>
 <% end %>
 <p><strong>Total </strong>
-  <%= number_to_currency(@cart.total_price) %>
+<!--  checking if the current user is more than 65 years for 10% discount-->
+  <%if User.check_age(current_user) > 65 %>
+    <%@total_price_items = number_to_currency((@cart.total_price*0.9).round(2)) %>
+    <%= @total_price_items %> (with 10% discount!)
+  <%else %>
+    <%@total_price_items =  number_to_currency(@cart.total_price)%>
+    <%= @total_price_items %>
+  <%end %>
 </p>
 <p><strong>Name On Card</strong>
   <%= current_user.card_name %></p>

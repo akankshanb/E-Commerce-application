@@ -76,7 +76,7 @@ class ItemsController < ApplicationController
         format.html { render :new }
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end
-      Item.update_cost(@item)
+      Item.update_tax(@item)
     end
   end
 

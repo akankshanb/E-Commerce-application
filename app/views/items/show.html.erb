@@ -23,7 +23,7 @@
 <p>
 <!--  changing the name from Cost to Price here to make more sense-->
   <strong>Price:</strong>
-<%= @item.cost %>$  (Tax included)
+<%= @item.cost %>$  (Tax <%=@item.tax %>% not included)
 </p>
 
 <p>
@@ -85,20 +85,26 @@
   <% end %>
 <% end %>
 
-<!--checking if item is available. If not, the option to subscribe is available-->
-<% if not @item.available %>
-  <p><%=link_to "Subscribe!", new_item_subscribe_path(@item)%> for an alert!</p>
-<!--  trying to add a new entry through create method-->
-<!--  <p><%#=link_to "Subscribe!", item_subscribes_path(@item)%> for an alert!</p>-->
-<%end %>
-
 <!--Adding a link to write the review-->
 <%= link_to "Write a Review", new_item_review_path(@item) %>
+<!--the option to add to cart-->
 <% if user_signed_in? %>
-  <%= button_to 'Add to cart', line_items_path(item_id: @item), class: 'button is-warning add-to-cart' %>
+<!--  adding the restriction of under-aged users i.e. less than 18 years -->
+  <%if (User.check_age(current_user)<18) && (@item.age_restricted == true) %>
+    <p>This item is age restricted. Cannot be bought.</p>
+  <%elsif not @item.available%>
+    <!--checking if item is available. If not, the option to subscribe is available-->
+    <p><%=link_to "Subscribe!", new_item_subscribe_path(@item)%> for an alert!</p>
+  <%else%>
+    <%= button_to 'Add to cart', line_items_path(item_id: @item), class: 'button is-warning add-to-cart' %>
+<!--    link to buy the item directly bypassing the cart-->
+    <%= link_to 'Buy Now!', send_otp_path(buy_state: "now", item_buy: @item) %>
+  <%end %>
+<!--else option to sign up-->
 <% else %>
   <%= link_to "Sign Up", new_user_registration_path %>
 <% end %>
+
 <%if user_signed_in? && current_user.admin? %>
 <%= link_to 'Edit', edit_item_path(@item) %> |
  <%end %>

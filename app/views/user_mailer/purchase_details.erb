@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+<h1> Hello <%=@user.name %>! </h1>
+<p>
+The following purchases were made:
+  <% @cart.line_items.each do |c| %>
+  <p><strong>Quantity</strong>
+    <%= c.quantity %></p>
+  <p>
+<!--  <div style="width:100px; height:auto">-->
+    <%#= image_tag(c.item.image, style:'width:100%') %>
+<!--  </div>-->
+    <strong>Item</strong>
+    <%= c.item.name %>
+  </p>
+  <p>
+    <strong>Price</strong>
+    <%= number_to_currency(c.total_price) %> (tax included)
+  </p>
+<% end %>
+<p><strong>Total </strong>
+  <!--  checking if the current user is more than 65 years for 10% discount-->
+  <%if User.check_age(@user) > 65 %>
+    <%@total_price_items = number_to_currency((@cart.total_price*0.9).round(2)) %>
+    <%= @total_price_items %> (with 10% discount!)
+  <%else %>
+    <%@total_price_items =  number_to_currency(@cart.total_price)%>
+    <%= @total_price_items %>
+  <%end %>
+</p>
+
+<p>Thank you for joining us. Have a great day!</p>
+</body>
+</html>

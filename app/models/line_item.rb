@@ -2,7 +2,8 @@ class LineItem < ApplicationRecord
   belongs_to :item
   belongs_to :cart
   def total_price
-    item.cost.to_i * quantity.to_i
+    # adding the tax component
+    item.cost.to_i * (1 + (item.tax / 100)) * quantity.to_i
   end
 
   def remove_items

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_20_204453) do
+ActiveRecord::Schema.define(version: 2020_02_27_181900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,8 +55,9 @@ ActiveRecord::Schema.define(version: 2020_02_20_204453) do
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.float "popularity"
     t.bigint "user_id", null: false
+    t.float "popularity"
+    t.float "tax"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
@@ -113,6 +114,4 @@ ActiveRecord::Schema.define(version: 2020_02_20_204453) do
   add_foreign_key "items", "users"
   add_foreign_key "line_items", "carts"
   add_foreign_key "line_items", "items"
-  add_foreign_key "subscribes", "items"
-  add_foreign_key "subscribes", "users"
 end
