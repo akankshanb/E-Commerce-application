@@ -51,23 +51,23 @@ class Item < ApplicationRecord
   end
 
   # updating the cost column of the item which includes the tax of the item
-  def self.update_cost(item)
+  def self.update_tax(item)
     # the tax bracket [0-100) -> 5%; [100-1000) -> 10%; [1000,.] ->15%
     # getting the cost of the item
-    cost_item = item.cost
-      case cost_item
+    # cost_item = item.cost
+      case item.cost
       # first tax bracket
       when 0..99
-        price_item = (cost_item + (cost_item)*(0.05)).round(2)
-        item.update_column('cost', price_item)
+        # price_item = (cost_item + (cost_item)*(0.05)).round(2)
+        item.update_column('tax', 5)
       # second tax bracket
       when 100..999
-        price_item = ((cost_item + (cost_item)*(0.1))).round(2)
-        item.update_column('cost', price_item)
+        # price_item = ((cost_item + (cost_item)*(0.1))).round(2)
+        item.update_column('tax', 10)
       # rest of the tax bracket
       else
-        price_item = ((cost_item + (cost_item)*(0.15))).round(2)
-        item.update_column('cost', price_item)
+        # price_item = ((cost_item + (cost_item)*(0.15))).round(2)
+        item.update_column('tax', 15)
       end
   end
 

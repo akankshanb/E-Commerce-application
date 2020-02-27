@@ -23,7 +23,7 @@
 <p>
 <!--  changing the name from Cost to Price here to make more sense-->
   <strong>Price:</strong>
-<%= @item.cost %>$  (Tax included)
+<%= @item.cost %>$  (Tax <%=@item.tax %>% not included)
 </p>
 
 <p>
