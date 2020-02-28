@@ -2,14 +2,31 @@
 
 <h1>Orders</h1>
 
+<!--      the search to filter out what is required-->
+<%= form_tag orders_path, :method => 'get' do %>
+  <p>
+    Search
+    <!--    getting the quantity name-->
+    <%if current_user.admin? %>
+      <%= text_field_tag :search_user, params[:search_user] %> (user name)
+    <%end %>
+    <!--    getting the column name using the drop down-->
+    <%= text_field_tag :search_item, params[:search_item] %> (item name)
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+  <%if not params[:search_user].nil? or not params[:search_item].nil? %>
+    <%=link_to 'Cancel Search', orders_path %>
+  <%end%>
+<% end %>
+
 <table>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Quantity</th>
-      <th>Price</th>
       <th>User</th>
       <th>Item</th>
+      <th>Quantity</th>
+      <th>Price</th>
+<!--      <th>Item</th>-->
       <th>Status</th>
 <!--      creating new columns for the approve and disapprove buttons-->
       <th>Actions</th>
@@ -23,11 +40,11 @@
       <tr>
 <!--        to display just for the user-->
         <%if (order.user_id == current_user.id) && (not current_user.admin?)%>
+          <td><%= order.user_name %></td>
           <td><%= order.name %></td>
           <td><%= order.quantity %></td>
           <td><%= order.price %></td>
-          <td><%= order.user_id %></td>
-          <td><%= order.item_id %></td>
+<!--          <td><%#= order.item_id %></td>-->
           <td><%= order.status %></td>
 <!--          option to return the item - status 0 and 2-->
           <%if order.status == 'Purchased' or order.status == 'Special Item Purchased'%>
@@ -41,11 +58,11 @@
 <!--        <td><%#= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
         <%if current_user.admin? %>
 <!--          admin display-->
+          <td><%= order.user_name %></td>
           <td><%= order.name %></td>
           <td><%= order.quantity %></td>
           <td><%= order.price %></td>
-          <td><%= order.user_id %></td>
-          <td><%= order.item_id %></td>
+<!--          <td><%#= order.item_id %></td>-->
 <!--          <td><%#= order.status %></td>-->
           <td><%= order.status %></td>
 <!--          special item buying request - status 1-->

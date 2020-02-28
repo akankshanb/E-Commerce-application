@@ -17,10 +17,12 @@
     <%if (user_signed_in?) && (not session[:cart_id].nil?) %>
     <p align="right"><%=link_to 'Cart', cart_path(session[:cart_id]) %></p>
     <%end %>
+    <%if (user_signed_in?) %>
+    <!--    adding a purchase history link for the user to see-->
+    <p align="right"><%=link_to 'Purchase History', orders_path %></p>
+    <%end %>
 <!--    adding an items link to items index page-->
     <p align="right"><%=link_to 'Items', items_path %></p>
-<!--    adding a purchase history link for the user to see-->
-    <p align="right"><%=link_to 'Purchase History', orders_path %></p>
     <%= render 'layouts/alerts' %>
     <%= yield %>
   </body>

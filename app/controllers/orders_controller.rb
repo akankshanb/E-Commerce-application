@@ -6,7 +6,27 @@ class OrdersController < ApplicationController
   def index
     # @orders = Order.all
     # changing here to be sorted by the id
-    @orders = Order.order(:id)
+    order_arelTable = Order.arel_table
+    search_user = params[:search_user]
+    search_item = params[:search_item]
+    # filtering the out the users and items
+    if params.has_key?(:search_user) && params.has_key?(:search_item)
+      # the name column has the item names for this tableputs search_user
+      if search_user.present? && search_item.blank?
+        puts "condition 1"
+        @orders = Order.where(order_arelTable[:user_name].matches(params[:search_user])).order(:id)
+      # elsif params[:search_user].blank? && (!params[:search_item].blank?)
+      elsif search_user.blank? && search_item.present?
+        puts "condition 2"
+        @orders = Order.where(order_arelTable[:name].matches(params[:search_item])).order(:id)
+      else
+        puts "condition 3"
+        @orders = Order.where(order_arelTable[:user_name].matches(params[:search_user])).where(order_arelTable[:name].matches(params[:search_item])).order(:id)
+      end
+    else
+      # if there is no searching requested by the user then complete history is to be shown
+      @orders = Order.order(:id)
+    end
   end
 
   # GET /orders/1
