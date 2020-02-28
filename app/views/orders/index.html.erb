@@ -53,17 +53,13 @@
             </td>
             <%end %>
           <%end %>
-          <!--        <td><%#= link_to 'Show', order %></td>-->
-<!--        <td><%#= link_to 'Edit', edit_order_path(order) %></td>-->
-<!--        <td><%#= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
+
         <%if current_user.admin? %>
 <!--          admin display-->
           <td><%= order.user_name %></td>
           <td><%= order.name %></td>
           <td><%= order.quantity %></td>
           <td><%= order.price %></td>
-<!--          <td><%#= order.item_id %></td>-->
-<!--          <td><%#= order.status %></td>-->
           <td><%= order.status %></td>
 <!--          special item buying request - status 1-->
           <%if order.status == 'Pending Admin Approval' %>
@@ -90,5 +86,3 @@
 </table>
 
 <br>
-
-<%#= link_to 'New Order', new_order_path %>
