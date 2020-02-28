@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   # routing devise to use our custom registrations controller
-  devise_for :users, :controllers => { sessions: 'sessions', registrations: 'registrations'}
-  
+  devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks', sessions: 'sessions', registrations: 'registrations'}
+
+  devise_scope :user do
+    delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_omniauth_user_session
+  end
+
   resources :users, only: [:show, :edit, :update]
   
   resources :users_admin, :controller => 'users'
