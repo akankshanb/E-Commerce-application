@@ -9,8 +9,8 @@ class OrdersController < ApplicationController
 
   # GET /orders/1
   # GET /orders/1.json
-  def show
-  end
+  # def show
+  # end
 
   # GET /orders/new
   def new
@@ -59,6 +59,12 @@ class OrdersController < ApplicationController
       format.html { redirect_to orders_url, notice: 'Order was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # updating the order table
+  def update_status
+    Order.find(params[:id]).update_column('status', params[:status])
+    redirect_back(fallback_location: orders_path)
   end
 
   private
