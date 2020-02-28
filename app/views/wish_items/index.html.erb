@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Wish Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Wishlist</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @wish_items.each do |wish_item| %>
+      <tr>
+        <td><%= wish_item.item_id %></td>
+        <td><%= wish_item.wishlist_id %></td>
+        <td><%= link_to 'Show', wish_item %></td>
+        <td><%= link_to 'Edit', edit_wish_item_path(wish_item) %></td>
+        <td><%= link_to 'Destroy', wish_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Wish Item', new_wish_item_path %>

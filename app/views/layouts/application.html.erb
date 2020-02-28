@@ -4,25 +4,26 @@
     <title>StoreManagement</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <div class="topnav">
+      <p><%=link_to 'Home', root_path %></p>
+      <p><%=link_to 'Items', items_path %></p>
+      <%if (user_signed_in?) && (not session[:cart_id].nil?) %>
+        <p><%=link_to 'Cart', cart_path(session[:cart_id]) %></p>
+      <%end %>
+      <%if (user_signed_in?) && (not session[:wish_id].nil?) %>
+        <p><%=link_to 'Wishlist', wishlist_path(session[:wish_id]) %></p>
+      <%end %>
+      <%if (user_signed_in?) %>
+        <p align="right"><%=link_to 'Purchase History', orders_path %></p>
+      <%end %>
+    </div>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-<!--    adding a home link that appears in all pages-->
-    <p align="right"><%=link_to 'Home', root_path %></p>
-<!--    adding a cart link-->
-<!--had to add a condition to check if the cart_id is nil because the cart seems to be assigned in the index page-->
-    <%if (user_signed_in?) && (not session[:cart_id].nil?) %>
-    <p align="right"><%=link_to 'Cart', cart_path(session[:cart_id]) %></p>
-    <%end %>
-    <%if (user_signed_in?) %>
-    <!--    adding a purchase history link for the user to see-->
-    <p align="right"><%=link_to 'Purchase History', orders_path %></p>
-    <%end %>
-<!--    adding an items link to items index page-->
-    <p align="right"><%=link_to 'Items', items_path %></p>
     <%= yield %>
   </body>
 </html>
+
+

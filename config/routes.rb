@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
+  resources :wish_items
+  resources :wishlists
+  
   resources :orders
+
   # routing devise to use our custom registrations controller
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks', sessions: 'sessions', registrations: 'registrations'}
 

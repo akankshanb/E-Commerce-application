@@ -8,6 +8,7 @@ class Item < ApplicationRecord
   has_many :subscribes, dependent: :destroy
   # line items
   has_many :line_items
+  has_many :wish_items
   # the orders
   has_many :orders
 
