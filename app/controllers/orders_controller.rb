@@ -4,9 +4,9 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
-    # changing here to be sorted by the created date
-    # @order = Order.all.order(:created_by)
+    # @orders = Order.all
+    # changing here to be sorted by the id
+    @orders = Order.order(:id)
   end
 
   # GET /orders/1
@@ -66,6 +66,7 @@ class OrdersController < ApplicationController
   # updating the order table
   def update_status
     Order.find(params[:id]).update_column('status', params[:status])
+    # redirecting back to the present orders index
     redirect_back(fallback_location: orders_path)
   end
 
