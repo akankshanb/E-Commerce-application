@@ -29,8 +29,8 @@
           <td><%= order.user_id %></td>
           <td><%= order.item_id %></td>
           <td><%= order.status %></td>
-<!--          option to return the item-->
-          <%if order.status == 0 or order.status == 2%>
+<!--          option to return the item - status 0 and 2-->
+          <%if order.status == 'Purchased' or order.status == 'Special Item Purchased'%>
             <td>
               <%= button_to 'Return Item?', orders_update_status_path(:order => order, :id => order.id, :status => 4), class: 'btn btn-danger', :method => :post%>
             </td>
@@ -46,9 +46,10 @@
           <td><%= order.price %></td>
           <td><%= order.user_id %></td>
           <td><%= order.item_id %></td>
+<!--          <td><%#= order.status %></td>-->
           <td><%= order.status %></td>
-<!--          special item buying request-->
-          <%if order.status == 1 %>
+<!--          special item buying request - status 1-->
+          <%if order.status == 'Pending Admin Approval' %>
             <td>
               <%= button_to 'Approve', orders_update_status_path(:order => order, :id => order.id, :status => 2), class: 'btn btn-danger', :method => :post%>
             </td>
@@ -56,8 +57,8 @@
               <%= button_to 'Reject', orders_update_status_path(:order => order, :id => order.id, :status => 3), class: 'btn btn-danger', :method => :post%>
             </td>
           <% end%>
-<!--          return the item request-->
-          <%if order.status == 4 %>
+<!--          return the item request - status 4-->
+          <%if order.status == 'Return Requested - awaiting Admin approval' %>
             <td>
               <%= button_to 'Approve', orders_update_status_path(:order => order, :id => order.id, :status => 5), class: 'btn btn-danger', :method => :post%>
             </td>
