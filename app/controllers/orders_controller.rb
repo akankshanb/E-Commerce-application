@@ -66,6 +66,9 @@ class OrdersController < ApplicationController
   # updating the order table
   def update_status
     Order.find(params[:id]).update_column('status', params[:status])
+    # sending an email to the user of the updated status
+    # need the user details, item details and status
+    UserMailer.with(order: Order.find(params[:id]), status: params[:status]).updated_status.deliver_now
     # redirecting back to the present orders index
     redirect_back(fallback_location: orders_path)
   end
