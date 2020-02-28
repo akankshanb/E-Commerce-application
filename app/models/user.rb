@@ -4,6 +4,8 @@ class User < ApplicationRecord
   # testing the subscription
   has_many :subscribes, dependent: :destroy
   has_many :items
+  # the orders
+  has_many :orders
 
   def username
     return self.email.split('@')[0].capitalize
