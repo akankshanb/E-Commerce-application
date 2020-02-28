@@ -72,13 +72,9 @@ class UsersController < ApplicationController
     end
 
     def account_update_params
-        params.require(:user).permit(:name, :phone, :dob, :address, :email, :password, :password_confirmation, :current_password, :card_name, :card_number, :exp, :cvv)
+        params.require(:user).permit(:name, :phone, :dob, :address, :email, :card_name, :card_number, :exp, :cvv, :utf8, :_method, :authenticity_token, :user, :commit, :id)
     end
 
-    def update_resource(resource, params)
-      resource.update_with_password(params)
-    end
-    
     def protect
         if current_user.admin == false
             redirect_to root_path, notice: "You do not have admin priviledges!"
