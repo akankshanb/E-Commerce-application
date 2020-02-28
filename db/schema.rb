@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_28_005736) do
+ActiveRecord::Schema.define(version: 2020_02_28_202942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,8 +55,8 @@ ActiveRecord::Schema.define(version: 2020_02_28_005736) do
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", null: false
     t.float "popularity"
+    t.bigint "user_id", null: false
     t.float "tax"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 2020_02_28_005736) do
     t.index ["item_id"], name: "index_line_items_on_item_id"
   end
 
+<<<<<<< HEAD
   create_table "order_items", force: :cascade do |t|
     t.integer "quantity"
     t.integer "item_id"
@@ -86,6 +87,20 @@ ActiveRecord::Schema.define(version: 2020_02_28_005736) do
     t.decimal "total"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+=======
+  create_table "orders", force: :cascade do |t|
+    t.integer "status"
+    t.integer "quantity"
+    t.integer "price"
+    t.bigint "user_id"
+    t.bigint "item_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+    t.string "user_name"
+    t.index ["item_id"], name: "index_orders_on_item_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+>>>>>>> 0d5dfc08ea02bca9980fe799b8f45540cc64eb28
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -122,6 +137,12 @@ ActiveRecord::Schema.define(version: 2020_02_28_005736) do
     t.string "card_number"
     t.date "exp"
     t.integer "cvv"
+<<<<<<< HEAD
+=======
+    t.string "otp_secret_key"
+    t.string "provider"
+    t.string "uid"
+>>>>>>> 0d5dfc08ea02bca9980fe799b8f45540cc64eb28
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -145,8 +166,18 @@ ActiveRecord::Schema.define(version: 2020_02_28_005736) do
   add_foreign_key "items", "users"
   add_foreign_key "line_items", "carts"
   add_foreign_key "line_items", "items"
+<<<<<<< HEAD
   add_foreign_key "subscribes", "items"
   add_foreign_key "subscribes", "users"
   add_foreign_key "wish_items", "items"
   add_foreign_key "wish_items", "wishlists"
+=======
+<<<<<<< HEAD
+  add_foreign_key "subscribes", "items"
+  add_foreign_key "subscribes", "users"
+=======
+  add_foreign_key "orders", "items"
+  add_foreign_key "orders", "users"
+>>>>>>> 90bc630e3b2ccb557da72ecb25612f3ac87a94d7
+>>>>>>> 0d5dfc08ea02bca9980fe799b8f45540cc64eb28
 end
