@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :orders
   # routing devise to use our custom registrations controller
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks', sessions: 'sessions', registrations: 'registrations'}
 
@@ -22,6 +23,9 @@ Rails.application.routes.draw do
   get 'payment/index'
   resources :line_items
   resources :carts
+
+  # updating the table
+  post 'orders/:id/update_status' => 'orders#update_status', :as => :orders_update_status
 
   # Routing to HomePage
   root 'welcome#index'

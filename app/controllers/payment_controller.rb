@@ -22,6 +22,9 @@ class PaymentController < ApplicationController
       UserMailer.with(user: current_user, cart: @cart).purchase_details.deliver_now
       # updating the items quantity
       Item.update_quantity(@line_item)
+      # updating the orders table with the present line items
+      Order.enter_line_items(current_user, @cart)
+
       session[:current_otp] = nil
       @line_item.destroy_all
       respond_to do |format|
