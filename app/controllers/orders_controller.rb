@@ -5,6 +5,8 @@ class OrdersController < ApplicationController
   # GET /orders.json
   def index
     @orders = Order.all
+    # changing here to be sorted by the created date
+    # @order = Order.all.order(:created_by)
   end
 
   # GET /orders/1
@@ -75,6 +77,6 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:status, :quantity, :price, :user_id, :item_id)
+      params.require(:order).permit(:status, :quantity, :price, :user_id, :item_id, :name)
     end
 end

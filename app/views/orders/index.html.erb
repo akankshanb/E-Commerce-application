@@ -5,13 +5,15 @@
 <table>
   <thead>
     <tr>
-      <th>Status</th>
+      <th>Name</th>
       <th>Quantity</th>
       <th>Price</th>
       <th>User</th>
       <th>Item</th>
-      <th>Name</th>
+      <th>Status</th>
+<!--      creating new columns for the approve and disapprove buttons-->
       <th>Actions</th>
+      <th></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -21,41 +23,48 @@
       <tr>
 <!--        to display just for the user-->
         <%if (order.user_id == current_user.id) && (not current_user.admin?)%>
-          <td><%= order.status %></td>
+          <td><%= order.name %></td>
           <td><%= order.quantity %></td>
           <td><%= order.price %></td>
           <td><%= order.user_id %></td>
           <td><%= order.item_id %></td>
-          <td><%= order.name %></td>
-          <td>
+          <td><%= order.status %></td>
 <!--          option to return the item-->
-          <%if order.status == 0 %>
-            <%= button_to 'Return Item?', orders_update_status_path(:order => order, :id => order.id, :status => 2), class: 'btn btn-danger', :method => :post%>
+          <%if order.status == 0 or order.status == 2%>
+            <td>
+              <%= button_to 'Return Item?', orders_update_status_path(:order => order, :id => order.id, :status => 4), class: 'btn btn-danger', :method => :post%>
+            </td>
+            <%end %>
           <%end %>
-          </td>
           <!--        <td><%#= link_to 'Show', order %></td>-->
 <!--        <td><%#= link_to 'Edit', edit_order_path(order) %></td>-->
 <!--        <td><%#= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
-        <%else %>
+        <%if current_user.admin? %>
 <!--          admin display-->
-          <td><%= order.status %></td>
+          <td><%= order.name %></td>
           <td><%= order.quantity %></td>
           <td><%= order.price %></td>
           <td><%= order.user_id %></td>
           <td><%= order.item_id %></td>
-          <td><%= order.name %></td>
-<!--          the approval button-->
-          <%#= order.status == 1 ? button_to 'Approve', Order.buy_approvals : puts 'Not required'%>
-          <td>
+          <td><%= order.status %></td>
 <!--          special item buying request-->
           <%if order.status == 1 %>
-              <%= button_to 'Approve', orders_update_status_path(:order => order, :id => order.id, :status => 0), class: 'btn btn-danger', :method => :post%>
+            <td>
+              <%= button_to 'Approve', orders_update_status_path(:order => order, :id => order.id, :status => 2), class: 'btn btn-danger', :method => :post%>
+            </td>
+            <td>
+              <%= button_to 'Reject', orders_update_status_path(:order => order, :id => order.id, :status => 3), class: 'btn btn-danger', :method => :post%>
+            </td>
           <% end%>
 <!--          return the item request-->
-          <%if order.status == 2 %>
-              <%= button_to 'Approve', orders_update_status_path(:order => order, :id => order.id, :status => 3), class: 'btn btn-danger', :method => :post%>
+          <%if order.status == 4 %>
+            <td>
+              <%= button_to 'Approve', orders_update_status_path(:order => order, :id => order.id, :status => 5), class: 'btn btn-danger', :method => :post%>
+            </td>
+            <td>
+              <%= button_to 'Reject', orders_update_status_path(:order => order, :id => order.id, :status => 6), class: 'btn btn-danger', :method => :post%>
+            </td>
           <%end %>
-          </td>
         <%end %>
       </tr>
     <% end %>
