@@ -1,8 +1,10 @@
 class ItemsController < ApplicationController
   include CurrentCart
+  include CurrentWishlist
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:show, :index]
   before_action :set_cart, except: [:create, :new, :update]
+  before_action :set_wishlist, except: [:create, :new, :update]
 
   # GET /items
   # GET /items.json

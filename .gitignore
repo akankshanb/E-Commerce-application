@@ -31,4 +31,3 @@ yarn-debug.log*
 .yarn-integrity
 ./database.yml
 /app/assets/images/*
-/app/assets/stylesheets/*

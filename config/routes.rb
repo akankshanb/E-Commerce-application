@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :wish_items
+  resources :wishlists
   # routing devise to use our custom registrations controller
   devise_for :users, :controllers => { sessions: 'sessions', registrations: 'registrations'}
   

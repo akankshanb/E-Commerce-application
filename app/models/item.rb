@@ -8,6 +8,7 @@ class Item < ApplicationRecord
   has_many :subscribes, dependent: :destroy
 
   has_many :line_items
+  has_many :wish_items
   # Validations of the fields
   # validating that the cost is non-negative
   validates :cost, numericality: { greater_than_or_equal_to: 0, message: "The cost must be greater than or equal to zero." }

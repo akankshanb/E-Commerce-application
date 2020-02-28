@@ -28,13 +28,12 @@ class LineItemsController < ApplicationController
   def create
     @item = Item.find(params[:item_id])
     @line_item = @cart.add_item(@item)
-
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_to @line_item.cart, notice: 'Line item was successfully created.' }
+        format.html { redirect_to @line_item.cart}
         format.json { render :show, status: :created, location: @line_item }
       else
-        format.html { render :new }
+        format.html { render :show }
         format.json { render json: @line_item.errors, status: :unprocessable_entity }
       end
     end
@@ -45,7 +44,7 @@ class LineItemsController < ApplicationController
   def update
     respond_to do |format|
       if @line_item.update(line_item_params)
-        format.html { redirect_to @line_item, notice: 'Line item was successfully updated.'}
+        format.html { redirect_to @line_item}
         format.json { render :show, status: :ok, location: @line_item }
       else
         format.html { render :edit }
@@ -70,7 +69,7 @@ class LineItemsController < ApplicationController
     def set_line_item
       @line_item = LineItem.find(params[:id])
     end
-
+    
     # Only allow a list of trusted parameters through.
     def line_item_params
       params.require(:line_item).permit(:item_id, :cart_id)

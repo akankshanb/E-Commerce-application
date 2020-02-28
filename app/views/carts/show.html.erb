@@ -1,11 +1,10 @@
 <h1> Items in your cart!</h1>
 <p><%= render(@cart.line_items) %></p>
-<%#= button_to 'Empty Cart', @cart, method: :delete, data: { confirm: "Are you sure? " }, class: "button is-danger" %>
+<%= button_to 'Empty Cart', @cart, method: :delete, data: { confirm: "Are you sure? " }, class: "button is-danger" %>
 <p><strong>Total </strong>
 <%= number_to_currency(@cart.total_price) %> (Tax included)
 </p>
 <%= link_to 'Keep Shopping', items_path, class: 'button is-warning' %>
-<%= link_to 'Checkout', payment_index_path, class: 'button is-warning' %>
-<%#= link_to 'Checkout', payment_index_path, class: 'button is-warning', controller: payment, action: send_otp %>
-
-
+<% if !@cart.line_items.empty? %>
+    <%= link_to 'Checkout', payment_index_path, class: 'button is-warning' %>
+<%end%>

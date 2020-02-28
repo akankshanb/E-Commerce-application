@@ -97,6 +97,7 @@
     <p><%=link_to "Subscribe!", new_item_subscribe_path(@item)%> for an alert!</p>
   <%else%>
     <%= button_to 'Add to cart', line_items_path(item_id: @item), class: 'button is-warning add-to-cart' %>
+    <%= button_to 'Add to wishlist', wish_items_path(item_id: @item), class: 'button is-warning add-to-cart' %>
 <!--    link to buy the item directly bypassing the cart-->
     <%= link_to 'Buy Now!', send_otp_path(buy_state: "now", item_buy: @item) %>
   <%end %>

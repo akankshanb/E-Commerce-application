@@ -1,0 +1,7 @@
+<h1> Items in your Wishlist!</h1>
+<p><%= render(@wishlist.wish_items) %></p>
+<%= button_to 'Empty Wishlist', @wishlist, method: :delete, data: { confirm: "Are you sure? " }, class: "button is-danger" %>
+<p><strong>Total </strong>
+<%= number_to_currency(@wishlist.total_price) %> (Tax included)
+</p>
+<%= link_to 'Keep Shopping', items_path, class: 'button is-warning' %>
