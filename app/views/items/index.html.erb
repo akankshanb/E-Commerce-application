@@ -56,9 +56,7 @@
         <td><%= item.restricted %></td>
         <td><%= item.age_restricted %></td>
         <td>
-          <div style="width:75px; height:auto">
-            <%= image_tag(item.image, style:'width:100%') %>
-          </div>
+          <%=image_tag(item.image, size:"80") %>
         </td>
 <!--        calculating the average and adding the rating for the item-->
         <td><%= @avg_review %></td>
