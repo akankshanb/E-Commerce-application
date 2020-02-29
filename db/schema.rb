@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 2020_02_28_202942) do
     t.index ["item_id"], name: "index_orders_on_item_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
-  
+
   create_table "reviews", force: :cascade do |t|
     t.integer "rating"
     t.text "comment"
@@ -145,11 +145,10 @@ ActiveRecord::Schema.define(version: 2020_02_28_202942) do
   add_foreign_key "items", "users"
   add_foreign_key "line_items", "carts"
   add_foreign_key "line_items", "items"
+  add_foreign_key "orders", "items"
+  add_foreign_key "orders", "users"
   add_foreign_key "subscribes", "items"
   add_foreign_key "subscribes", "users"
   add_foreign_key "wish_items", "items"
   add_foreign_key "wish_items", "wishlists"
-
-  add_foreign_key "orders", "items"
-  add_foreign_key "orders", "users"
 end
