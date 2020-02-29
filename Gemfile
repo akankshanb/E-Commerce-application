@@ -3,6 +3,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.0'
 
+# OmniAuth
+gem 'omniauth'
+# OmniAuth facebook
+gem 'omniauth-facebook'
 # Hirb 
 gem 'hirb', '~> 0.7.3'
 # Devise gem

@@ -13,6 +13,9 @@
       <%if (user_signed_in?) && (not session[:wish_id].nil?) %>
         <p><%=link_to 'Wishlist', wishlist_path(session[:wish_id]) %></p>
       <%end %>
+      <%if (user_signed_in?) %>
+        <p align="right"><%=link_to 'Purchase History', orders_path %></p>
+      <%end %>
     </div>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>

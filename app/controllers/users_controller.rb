@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     # PATCH/PUT /users/1.json
     def update
         respond_to do |format|
-        if @user.update(user_params)
+        if @user.update(account_update_params)
             format.html { redirect_to users_admin_index_path, notice: 'User was successfully updated.' }
             format.json { render :show, status: :ok, location: users_admin_index_path }
         else
@@ -69,6 +69,10 @@ class UsersController < ApplicationController
 
     def user_params
         params.permit(:name, :phone, :dob, :address, :email, :password, :password_confirmation, :card_name, :card_number, :exp, :cvv)
+    end
+
+    def account_update_params
+        params.require(:user).permit(:name, :phone, :dob, :address, :email, :card_name, :card_number, :exp, :cvv, :utf8, :_method, :authenticity_token, :user, :commit, :id)
     end
 
     def protect

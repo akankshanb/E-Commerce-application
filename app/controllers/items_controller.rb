@@ -21,8 +21,6 @@ class ItemsController < ApplicationController
     if subscribed_users.present?
       # then send the subscribe email to all of them
       UserMailer.with(s_user: subscribed_users).subscribe_email.deliver_now
-      # this is the a new mailer to display the item name as well in the email
-      # ItemMailer.available_email(@item, subscribed_users)
     end
 
     # taking the params values and checking
