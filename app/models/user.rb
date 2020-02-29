@@ -10,13 +10,20 @@ class User < ApplicationRecord
   # the validations for the fields
   validates :card_number, length: { is: 16, message: 'The card must be a 16 digit number' }, numericality: { only_integer: true, greater_than: 0, message: 'The card must be greater than zero.' }
   validates :cvv, length: { is: 3, message: 'The CVV must be a 3 digit number' }, numericality: { only_integer: true, greater_than: 0, message: 'The card must be greater than zero.' }
+  validates :exp, format: {with: /(0[1-9]|1[0-2])\/[0-9]{2}/, message:'Please enter in mm/yy format' }, length: {is:5, message: 'Please enter in mm/yy format'}
   validate :expiration_date_cannot_be_in_the_past
   validate :dob_cannot_be_in_the_future
   validates :phone, length: { is: 10, message: 'The phone number must be 10 digit number ' }, numericality: { only_integer: true, greater_than: 0, message: 'The phone number must be greater than zero' }
   validates :name, format: { with: /\A[a-zA-Z]+\z/, message: 'only allows letters' }
 
   def expiration_date_cannot_be_in_the_past
-    errors.add(:exp, "Expiration date cannot be in the past") if !exp.blank? and exp < Date.today
+    # taking the month(index 0) and the year(index 1) from the exp to compare and determine its validation
+    if exp.split(/\//)[1].to_i < Date.today.year.to_i%100 or (exp.split(/\//)[1].to_i == Date.today.year.to_i%100 && exp.split(/\//)[0].to_i < Date.today.mon.to_i)
+      errors.add(:exp, "Expiration date cannot be in the past")
+    end
+    if exp.split(/\//)[0].to_i > 12 or exp.split(/\//)[0].to_i < 1
+      errrors.add(:exp, "Please enter a valid date")
+    end
   end
   def dob_cannot_be_in_the_future
     errors.add(:dob, "Date of birth cannot be in the future") if !dob.blank? and dob > Date.today

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_28_202942) do
+ActiveRecord::Schema.define(version: 2020_02_29_225624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,8 +55,8 @@ ActiveRecord::Schema.define(version: 2020_02_28_202942) do
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.float "popularity"
     t.bigint "user_id", null: false
+    t.float "popularity"
     t.float "tax"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
@@ -117,7 +117,7 @@ ActiveRecord::Schema.define(version: 2020_02_28_202942) do
     t.string "address"
     t.string "card_name"
     t.string "card_number"
-    t.date "exp"
+    t.string "exp"
     t.integer "cvv"
     t.string "otp_secret_key"
     t.string "provider"
@@ -147,8 +147,6 @@ ActiveRecord::Schema.define(version: 2020_02_28_202942) do
   add_foreign_key "line_items", "items"
   add_foreign_key "orders", "items"
   add_foreign_key "orders", "users"
-  add_foreign_key "subscribes", "items"
-  add_foreign_key "subscribes", "users"
   add_foreign_key "wish_items", "items"
   add_foreign_key "wish_items", "wishlists"
 end
