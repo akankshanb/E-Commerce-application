@@ -7,6 +7,21 @@ class User < ApplicationRecord
   # the orders
   has_many :orders
 
+  # the validations for the fields
+  validates :card_number, length: { is: 16, message: 'The card must be a 16 digit number' }, numericality: { only_integer: true, greater_than: 0, message: 'The card must be greater than zero.' }
+  validates :cvv, length: { is: 3, message: 'The CVV must be a 3 digit number' }, numericality: { only_integer: true, greater_than: 0, message: 'The card must be greater than zero.' }
+  validate :expiration_date_cannot_be_in_the_past
+  validate :dob_cannot_be_in_the_future
+  validates :phone, length: { is: 10, message: 'The phone number must be 10 digit number ' }, numericality: { only_integer: true, greater_than: 0, message: 'The phone number must be greater than zero' }
+  validates :name, format: { with: /\A[a-zA-Z]+\z/, message: 'only allows letters' }
+
+  def expiration_date_cannot_be_in_the_past
+    errors.add(:exp, "Expiration date cannot be in the past") if !exp.blank? and exp < Date.today
+  end
+  def dob_cannot_be_in_the_future
+    errors.add(:dob, "Date of birth cannot be in the future") if !dob.blank? and dob > Date.today
+  end
+
   def username
     return self.email.split('@')[0].capitalize
   end
@@ -21,8 +36,8 @@ class User < ApplicationRecord
   
   def self.new_with_session(params, session)
     super.tap do |user|
-      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-        user.email = data["email"] if user.email.blank?
+      if data = session['devise.facebook_data'] && session['devise.facebook_data']['extra']['raw_info']
+        user.email = data['email'] if user.email.blank?
       end
     end
   end

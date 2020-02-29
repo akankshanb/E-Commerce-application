@@ -13,27 +13,27 @@
   
     <div class="field">
         <%= f.label :name %><br />
-        <%= f.text_field :name, autofocus: true %>
+        <%= f.text_field :name, autofocus: true, required: true %>
     </div>
 
     <div class="field">
         <%= f.label :phone %><br />
-        <%= f.telephone_field :phone, autofocus: true  %>
+        <%= f.telephone_field :phone, autofocus: true, required: true  %>
     </div>
 
     <div class="field">
         <%= f.label :dob %><br />
-        <%= f.date_field :dob, autofocus: true %>
+        <%= f.date_field :dob, autofocus: true, required: true %>
     </div>
 
     <div class="field">
         <%= f.label :address %><br />
-        <%= f.text_field :address, autofocus: true %>
+        <%= f.text_field :address, autofocus: true, required: true %>
     </div>
 
     <div class="field">
         <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true %>
     </div>
 
     <div class="field">
@@ -51,22 +51,22 @@
 
     <div class="field">
         <%= f.label :card_name %><br />
-        <%= f.text_field :card_name, autofocus: true %>
+        <%= f.text_field :card_name, autofocus: true, required: true %>
     </div>
 
     <div class="field">
         <%= f.label :card_number %><br />
-        <%= f.text_field :card_number, autofocus: true %>
+        <%= f.text_field :card_number, autofocus: true, required: true %>
     </div>
 
     <div class="field">
         <%= f.label :exp %><br />
-        <%= f.date_field :exp, autofocus: true %>
+        <%= f.date_field :exp, autofocus: true, required: true %>
     </div>
 
     <div class="field">
         <%= f.label :cvv %><br />
-        <%= f.number_field :cvv, autofocus: true %>
+        <%= f.number_field :cvv, autofocus: true, required: true %>
     </div>
 
     <div class="actions">
