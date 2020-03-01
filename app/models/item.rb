@@ -1,16 +1,16 @@
 class Item < ApplicationRecord
   belongs_to :user
   # the image relationship
-  has_one_attached :image
+  # has_one_attached :image
   # the reviews relationship
   has_many :reviews, dependent: :destroy
   # subscribing
   has_many :subscribes, dependent: :destroy
   # line items
-  has_many :line_items
-  has_many :wish_items
+  has_many :line_items, dependent: :destroy
+  has_many :wish_items, dependent: :destroy
   # the orders
-  has_many :orders
+  has_many :orders, dependent: :destroy
 
   # Validations of the fields
   # validating that the cost is non-negative

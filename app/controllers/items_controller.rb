@@ -36,7 +36,7 @@ class ItemsController < ApplicationController
       end
     else
       # if no sorting or searching being performed then display the entire list
-      @items = Item.all
+      @items = Item.order(:name)
       # making it again empty
       @no_result_message = ""
     end

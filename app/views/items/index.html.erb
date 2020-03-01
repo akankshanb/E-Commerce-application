@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 <!--initializing the @no_result_messages-->
 <%#=@no_result_message = "" %>
 <h1>Items</h1>
@@ -30,7 +29,7 @@
       <th>Purchases</th>
       <th>Available</th>
       <th>Special</th>
-      <th>Restricted</th>
+<!--      <th>Restricted</th>-->
       <th>Age restricted</th>
       <th>Image</th>
 <!--      adding the rating column for the items-->
@@ -49,16 +48,14 @@
         <td><%= item.name %></td>
         <td><%= item.category %></td>
         <td><%= item.quantity %></td>
-        <td><%= item.cost %>$</td>
+        <td>$<%= item.cost %></td>
         <td><%= item.purchases %></td>
         <td><%= item.available %></td>
         <td><%= item.special %></td>
-        <td><%= item.restricted %></td>
+<!--        <td><%#= item.restricted %></td>-->
         <td><%= item.age_restricted %></td>
         <td>
-          <div style="width:75px; height:auto">
-            <%= image_tag(item.image, style:'width:100%') %>
-          </div>
+          <%=image_tag(item.image, size:"80") %>
         </td>
 <!--        calculating the average and adding the rating for the item-->
         <td><%= @avg_review %></td>
