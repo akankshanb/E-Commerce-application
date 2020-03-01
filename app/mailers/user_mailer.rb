@@ -9,7 +9,7 @@ class UserMailer < ApplicationMailer
   # the subscribe mail
   def subscribe_email
     # the params value has the list of subscribed users emails
-    mail(to: params[:s_user], subject: 'Item is available!')
+    mail(bcc: params[:s_user], subject: 'Item is available!')
   end
 
   def otp_email
