@@ -5,7 +5,7 @@ class User < ApplicationRecord
   has_many :subscribes, dependent: :destroy
   has_many :items
   # the orders
-  has_many :orders
+  has_many :orders, dependent: :destroy
 
   # the validations for the fields
   validates :card_number, length: { is: 16, message: 'The card must be a 16 digit number' }, numericality: { only_integer: true, greater_than: 0, message: 'The card must be greater than zero.' }
