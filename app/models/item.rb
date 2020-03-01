@@ -86,6 +86,8 @@ class Item < ApplicationRecord
         # taking in a list of subscribed users
         # s_user_list = subscribed_items.pluck(:user_id)
         s_user = User.find(subscribed_items.pluck(:user_id))
+        # to make this more personalized get the unique as the list has the same value
+        s_item = Item.find(subscribed_items.pluck(:item_id)).uniq{|i| i}[0]
         # if it is not empty
         if not s_user.empty?
           # taking in a list of their email ids
@@ -96,8 +98,8 @@ class Item < ApplicationRecord
       subscribed_ids = subscribed_items.pluck(:id)
       # delete the records of which the mails have been sent out already
       Subscribe.destroy(subscribed_ids)
-      # returning this
-      s_user_mail_list
+      # returning these
+      return s_user_mail_list, s_item
     end
   end
 
