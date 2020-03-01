@@ -11,9 +11,6 @@ class CartsController < ApplicationController
   # GET /carts/1
   # GET /carts/1.json
   def show
-    # puts "---------------------------------------------..........."
-    # puts @cart.line_items.empty?
-    # puts "------------>>>>>>>>>>"
   end
 
   # GET /carts/new

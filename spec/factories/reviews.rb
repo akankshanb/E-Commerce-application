@@ -5,5 +5,7 @@ FactoryGirl.define do
     rating 4
     comment "Great product!"
     item_id 1
+    association :item
   end
+
 end
