@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_28_202942) do
+ActiveRecord::Schema.define(version: 2020_03_01_000641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,7 +50,6 @@ ActiveRecord::Schema.define(version: 2020_02_28_202942) do
     t.integer "purchases"
     t.boolean "available"
     t.boolean "special"
-    t.boolean "restricted"
     t.boolean "age_restricted"
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
@@ -117,7 +116,7 @@ ActiveRecord::Schema.define(version: 2020_02_28_202942) do
     t.string "address"
     t.string "card_name"
     t.string "card_number"
-    t.date "exp"
+    t.string "exp"
     t.integer "cvv"
     t.string "otp_secret_key"
     t.string "provider"

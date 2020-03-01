@@ -100,7 +100,7 @@ If you are logged in as a non-admin user and try to access /users_admin, you wil
 
 * All users can use their Facebook account to log into the system. (But they need to edit their profile to provide all the required details by our system)
 ```
-After signing in with facebbook, you need to signup by giving other details as well. (We are only fetching your email from the facebook API)
+After signing in with facebook, you need to signup by giving other details as well. (We are only fetching your email from the facebook API)
 ```
 
 </details>

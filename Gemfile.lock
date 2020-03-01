@@ -283,8 +283,12 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   puma (~> 4.1)
   rails (~> 6.0.2, >= 6.0.2.1)
+<<<<<<< HEAD
   rails-controller-testing
   rspec-rails (~> 4.0.0.beta3)
+=======
+  rspec-rails (~> 3.9)
+>>>>>>> master
   sass-rails (>= 6)
   selenium-webdriver
   shoulda-matchers
