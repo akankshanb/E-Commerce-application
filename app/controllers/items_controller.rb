@@ -15,12 +15,12 @@ class ItemsController < ApplicationController
       # updating the popularity and availability
       Item.update_popularity
       Item.update_availability
-      subscribed_users = Item.check_users
+      subscribed_users, subscribed_item = Item.check_users
     end
     # if there are any subscribed users then send the mail to them
     if subscribed_users.present?
       # then send the subscribe email to all of them
-      UserMailer.with(s_user: subscribed_users).subscribe_email.deliver_now
+      UserMailer.with(s_user: subscribed_users, s_item: subscribed_item).subscribe_email.deliver_now
     end
 
     # taking the params values and checking

@@ -3,6 +3,7 @@ class UserMailer < ApplicationMailer
   before_action :set_otp
   before_action :set_cart
   before_action :set_order
+  before_action :set_item
 
   # the source mail
   default form: "online.shoppingrails@gmail.com"
@@ -47,4 +48,8 @@ class UserMailer < ApplicationMailer
     @order = params[:order]
   end
 
+  # setting the item to make personalized
+  def set_item
+    @sub_item = params[:s_item]
+  end
 end
