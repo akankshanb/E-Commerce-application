@@ -54,8 +54,8 @@ ActiveRecord::Schema.define(version: 2020_03_01_000641) do
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", null: false
     t.float "popularity"
+    t.bigint "user_id", null: false
     t.float "tax"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
@@ -146,6 +146,8 @@ ActiveRecord::Schema.define(version: 2020_03_01_000641) do
   add_foreign_key "line_items", "items"
   add_foreign_key "orders", "items"
   add_foreign_key "orders", "users"
+  add_foreign_key "subscribes", "items"
+  add_foreign_key "subscribes", "users"
   add_foreign_key "wish_items", "items"
   add_foreign_key "wish_items", "wishlists"
 end
