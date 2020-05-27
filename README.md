@@ -6,10 +6,6 @@
 
 # Store Management System
 
-## Contributors
-* [Akanksha Bhattacharaya](https://github.ncsu.edu/anbhatta)(anbhatta@ncsu.edu) <br>
-* [Venkata Santosh Pavan Pisapati](https://github.ncsu.edu/vpisapa)(vpisapa@ncsu.edu) <br>
-
 ## Deployment
 
 Link to deployed app: (https://storemanagementsystem.herokuapp.com)
