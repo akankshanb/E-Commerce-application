@@ -7,7 +7,6 @@
 # Store Management System
 
 ## Contributors
-* [Sujal](https://github.ncsu.edu/ssujal)(ssujal@ncsu.edu) <br>
 * [Akanksha Bhattacharaya](https://github.ncsu.edu/anbhatta)(anbhatta@ncsu.edu) <br>
 * [Venkata Santosh Pavan Pisapati](https://github.ncsu.edu/vpisapa)(vpisapa@ncsu.edu) <br>
 
